@@ -1,7 +1,7 @@
 Projeto: Espajo-Já
 Equipe: Arthur Rodrigues 22402586
-        Bernardo Almeida 2230
-        Daniel Henrique 22
+        Bernardo Almeida 
+        Daniel Henrique 
         Rubens Moutinho 
         Pedro Coelho
         Lucca Lourenço
