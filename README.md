@@ -1,27 +1,16 @@
-Projeto: Espajo-Já
-Equipe: Arthur Rodrigues 22402586
-        Bernardo Almeida 
-        Daniel Henrique 
-        Rubens Moutinho 
-        Pedro Coelho
-        Lucca Lourenço
+# espaco_ja
 
-Turma: 3A2
+A new Flutter project.
 
-Checklist de Desenvolvimento - Fases Iniciais
-Este é um guia de tarefas para as etapas iniciais de desenvolvimento do aplicativo. Marquem as caixas com um x ([x]) para indicar a conclusão de cada tarefa.
+## Getting Started
 
-Fase 1: Configuração e Estrutura Base
-[x] Definir a tecnologia principal.
+This project is a starting point for a Flutter application.
 
-[ ] Configurar o ambiente de desenvolvimento local para todos os integrantes.
+A few resources to get you started if this is your first Flutter project:
 
-[x] Criar o repositório no GitHub.
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-[ ] Definir a estrutura de pastas do projeto.
-
-[x] Criar o arquivo README.md com a descrição do projeto e integrantes.
-
-[ ] Escolher e configurar o banco de dados.
-
-[ ] Desenhar o esquema inicial do banco de dados.
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
