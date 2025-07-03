@@ -1,27 +1,42 @@
-Projeto: Espaço-Já
-Equipe: Arthur Rodrigues 22402586
-        Bernardo Almeida 
-        Daniel Henrique 
-        Rubens Moutinho 
-        Pedro Coelho
-        Lucca Lourenço
+# Espaço-Já
+
+> Aplicativo Flutter desenvolvido para facilitar a organização e o gerenciamento de espaços compartilhados.
+
+---
+
+## 🚀 Visão Geral
+
+O **Espaço-Já** é um aplicativo multiplataforma (Android e iOS) criado para otimizar o uso e a reserva de espaços compartilhados, como salas de estudo, coworkings e áreas comuns. O app permite:
+
+- Visualizar espaços disponíveis em tempo real
+- Fazer reservas rápidas e seguras
+- Gerenciar reservas e histórico de uso
+- Notificações para lembretes de reserva
+
+---
+
+## 👥 Equipe
+
+- Arthur Rodrigues – 22402586
+- Bernardo Almeida - 22302808
+- Daniel Henrique - 22400150
+- Rubens Moutinho - 22300970
+- Pedro Coelho - 12400653
+- Lucca Lourenço - 22402225
 
 Turma: 3A2
 
-Checklist de Desenvolvimento - Fases Iniciais
-Este é um guia de tarefas para as etapas iniciais de desenvolvimento do aplicativo. Marquem as caixas com um x ([x]) para indicar a conclusão de cada tarefa.
+---
 
-Fase 1: Configuração e Estrutura Base
-[x] Definir a tecnologia principal.
+## 📁 Estrutura do Projeto
 
-[ ] Configurar o ambiente de desenvolvimento local para todos os integrantes.
+```bash
+lib/
+├── main.dart           # Entrada principal do app
+├── models/             # Definição das entidades e dados
+├── screens/            # Telas do aplicativo
+├── widgets/            # Componentes reutilizáveis
+├── services/           # Serviços como API, notificações
+└── utils/              # Funções auxiliares
 
-[x] Criar o repositório no GitHub.
-
-[ ] Definir a estrutura de pastas do projeto.
-
-[x] Criar o arquivo README.md com a descrição do projeto e integrantes.
-
-[ ] Escolher e configurar o banco de dados.
-
-[ ] Desenhar o esquema inicial do banco de dados.
+test/                   # Testes unitários e de widget
