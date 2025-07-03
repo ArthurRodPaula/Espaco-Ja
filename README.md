@@ -1,4 +1,4 @@
-Projeto: Espajo-Já
+Projeto: Espaço-Já
 Equipe: Arthur Rodrigues 22402586
         Bernardo Almeida 
         Daniel Henrique 
