@@ -59,3 +59,4 @@ lib/
 
 test/                   # Testes unitários e de widget
 
+# Pedro baitola
