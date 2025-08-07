@@ -58,5 +58,3 @@ lib/
 └── utils/              # Funções auxiliares
 
 test/                   # Testes unitários e de widget
-
-# Pedro baitola
