@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'opcoes_screen.dart';
+
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -6,8 +8,6 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Removemos o backgroundColor do Scaffold, pois a imagem de fundo cobrirá tudo
-      // backgroundColor: const Color.fromARGB(255, 104, 226, 120),
       body: Stack( // Usamos Stack para empilhar a imagem e o conteúdo
         children: <Widget>[
           // --- Camada de Fundo (Imagem) ---
@@ -53,9 +53,11 @@ class HomeScreen extends StatelessWidget {
                   height: 50, // Altura padrão para o botão
                   child: ElevatedButton(
                     onPressed: () {
-                      // TODO: Lógica para navegar para a tela de Criar Conta
-                      print('Botão Criar Conta Pressionado!');
-                    },
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => OpcoesScreen()),
+                        );
+                      },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blueAccent, // Cor de fundo do botão
                       foregroundColor: Colors.white, // Cor do texto do botão
