@@ -1,3 +1,4 @@
+import 'package:espaco_ja/screens/meus_locais.dart';
 import 'package:flutter/material.dart';
 import 'mapa_screen.dart';
 
@@ -75,15 +76,24 @@ class _OpcoesScreenState extends State<OpcoesScreen> {
 
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green[600],
+                backgroundColor: escolha == null ? Colors.grey : Colors.green[600],
                 minimumSize: Size(double.infinity, 48),
               ),
-                onPressed: () {
+              onPressed: escolha == null
+                  ? null
+                  : () {
+                      if (escolha == 'Anunciar meu espaço') {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => MeusLocaisScreen()),
+                        );
+                      } else if (escolha == 'Alugar espaços') {
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => MapaScreen()),
                         );
-                      },
+                      }
+                    },
               child: Text('Continuar'),
             ),
           ],

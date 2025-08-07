@@ -42,7 +42,7 @@ class MeusLocaisScreen extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: Image.asset(
-                    'assets/salao_eventos.jpg', // imagem na pasta assets
+                    'assets/images/salao.jpeg', 
                     width: 60,
                     height: 60,
                     fit: BoxFit.cover,
