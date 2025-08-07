@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'opcoes_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -330,8 +331,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 56,
                     child: ElevatedButton(
                       onPressed: () {
-                        // Handle login
-                      },
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => OpcoesScreen()),
+                          );
+                        },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFF2E7D32),
                         shape: RoundedRectangleBorder(

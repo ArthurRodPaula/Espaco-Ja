@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'opcoes_screen.dart';
+import 'login_screen.dart';
 
 
 class HomeScreen extends StatelessWidget {
@@ -55,7 +55,7 @@ class HomeScreen extends StatelessWidget {
                     onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => OpcoesScreen()),
+                          MaterialPageRoute(builder: (context) => LoginScreen()),
                         );
                       },
                     style: ElevatedButton.styleFrom(

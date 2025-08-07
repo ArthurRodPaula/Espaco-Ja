@@ -8,6 +8,45 @@ class OpcoesScreen extends StatefulWidget {
 class _OpcoesScreenState extends State<OpcoesScreen> {
   String? escolha;
 
+  Widget opcaoWidget(String texto) {
+    bool selecionado = escolha == texto;
+
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          escolha = texto;
+        });
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+        margin: EdgeInsets.symmetric(vertical: 8),
+        decoration: BoxDecoration(
+          color: selecionado ? Colors.green[600] : Colors.grey[200],
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(
+            color: selecionado ? Colors.green[800]! : Colors.grey[400]!,
+            width: 2,
+          ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              texto,
+              style: TextStyle(
+                color: selecionado ? Colors.white : Colors.black87,
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            if (selecionado)
+              Icon(Icons.check_circle, color: Colors.white),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,39 +67,11 @@ class _OpcoesScreenState extends State<OpcoesScreen> {
             ),
             SizedBox(height: 40),
 
-            // Botão 1: Anunciar meu espaço
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green[600],
-                minimumSize: Size(double.infinity, 48),
-              ),
-              onPressed: () {
-                setState(() {
-                  escolha = 'Anunciar meu espaço';
-                });
-              },
-              child: Text('Anunciar meu espaço'),
-            ),
-
-            SizedBox(height: 20),
-
-            // Botão 2: Alugar espaços
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green[600],
-                minimumSize: Size(double.infinity, 48),
-              ),
-              onPressed: () {
-                setState(() {
-                  escolha = 'Alugar espaços';
-                });
-              },
-              child: Text('Alugar espaços'),
-            ),
+            opcaoWidget('Anunciar meu espaço'),
+            opcaoWidget('Alugar espaços'),
 
             SizedBox(height: 100),
 
-            // Botão Continuar
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green[600],
