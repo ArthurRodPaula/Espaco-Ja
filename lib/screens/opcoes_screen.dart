@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'mapa_screen.dart';
 
 class OpcoesScreen extends StatefulWidget {
   @override
@@ -77,12 +78,12 @@ class _OpcoesScreenState extends State<OpcoesScreen> {
                 backgroundColor: Colors.green[600],
                 minimumSize: Size(double.infinity, 48),
               ),
-              onPressed: escolha == null
-                  ? null
-                  : () {
-                      // Aqui você pode colocar a navegação para outra tela
-                      print('Escolha selecionada: $escolha');
-                    },
+                onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => MapaScreen()),
+                        );
+                      },
               child: Text('Continuar'),
             ),
           ],
