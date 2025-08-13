@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'add_editar_local_screen.dart.dart';
+
 
 /// =======================
 /// Card com mapa interativo
@@ -404,7 +406,7 @@ class DetalhesCoworkingScreen extends StatelessWidget {
 }
 
 /// =======================
-/// LISTA DE LOCAIS
+/// LISTA DE LOCAIS (com botão "Adicionar")
 /// =======================
 class MeusLocaisScreen extends StatelessWidget {
   const MeusLocaisScreen({super.key});
@@ -413,6 +415,7 @@ class MeusLocaisScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Meus locais'), leading: const BackButton()),
+
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -453,6 +456,20 @@ class MeusLocaisScreen extends StatelessWidget {
           ],
         ),
       ),
+
+      // ✅ Botão de adicionar que leva à tela de formulário
+      floatingActionButton: FloatingActionButton.extended(
+        heroTag: 'fab_add_local',
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const AddEditarLocalScreen()),
+          );
+        },
+        icon: const Icon(Icons.add),
+        label: const Text('Adicionar'),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }
