@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import 'add_editar_local_screen.dart.dart';
+import 'add_editar_local_screen.dart';
 
 
 /// =======================

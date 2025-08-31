@@ -17,7 +17,7 @@ class _MapaScreenState extends State<MapaScreen> {
   late final MapController _mapController;
 
   final LatLng _initialCenter = const LatLng(-19.9245, -43.9352);
-  double _initialZoom = 13;
+  final double _initialZoom = 13;
 
   final List<Marker> _markers = [
     const Marker(
