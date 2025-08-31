@@ -7,6 +7,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,6 +23,8 @@ class MyApp extends StatelessWidget {
 }
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -131,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(height: 24),
                   
                   // Send button
-                  Container(
+                  SizedBox(
                     width: double.infinity,
                     height: 48,
                     child: ElevatedButton(
@@ -209,7 +213,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           color: Color(0xFF1B5E20),
                         ),
                       ),
-                      Container(
+                      SizedBox(
                         width: 60,
                         height: 60,
                         child: Image.network(
@@ -326,7 +330,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(height: 40),
                   
                   // Continue button
-                  Container(
+                  SizedBox(
                     width: double.infinity,
                     height: 56,
                     child: ElevatedButton(

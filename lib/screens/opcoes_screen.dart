@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'mapa_screen.dart';
 
 class OpcoesScreen extends StatefulWidget {
+  const OpcoesScreen({super.key});
+
   @override
   _OpcoesScreenState createState() => _OpcoesScreenState();
 }
