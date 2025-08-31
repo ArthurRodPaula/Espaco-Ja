@@ -1,25 +1,6 @@
 import 'package:flutter/material.dart';
 
 
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Booking App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        scaffoldBackgroundColor: Colors.grey[50],
-        fontFamily: 'SFPro', // Using a system-like font
-      ),
-      home: const BookingDetailsScreen(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
-
 class BookingDetailsScreen extends StatefulWidget {
   const BookingDetailsScreen({super.key});
 
