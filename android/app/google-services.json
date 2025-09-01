@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "969330776178",
+    "project_id": "espacoja-185c4",
+    "storage_bucket": "espacoja-185c4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:969330776178:android:e990952fe25e7a32f38aeb",
+        "android_client_info": {
+          "package_name": "com.example.espaco_ja"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9j7SSrXC6zPZLd6AWfQWkiItI9E_UZs0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
