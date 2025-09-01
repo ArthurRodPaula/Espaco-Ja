@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 
 class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -138,12 +140,12 @@ class ProfileMenuItem extends StatelessWidget {
   final bool isLast;
 
   const ProfileMenuItem({
-    Key? key,
+    super.key,
     required this.icon,
     required this.title,
     required this.onTap,
     this.isLast = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -186,6 +188,8 @@ class ProfileMenuItem extends StatelessWidget {
 }
 
 class BottomNavigation extends StatelessWidget {
+  const BottomNavigation({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
