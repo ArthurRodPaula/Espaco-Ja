@@ -1,7 +1,9 @@
+import 'package:espaco_ja/screens/pagamento_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'add_editar_local_screen.dart';
+
 
 
 /// =======================
@@ -309,23 +311,30 @@ class _DetalhesBaseState extends State<_DetalhesBase> {
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text('Preço/periodo', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
-                          SizedBox(height: 4),
-                          Text('Ajuste no construtor das telas', style: TextStyle(color: Colors.black54, fontSize: 12.5)),
+                        children: [
+                          Text(widget.preco, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
+                          const SizedBox(height: 4),
+                          Text(widget.periodo, style: const TextStyle(color: Colors.black54, fontSize: 12.5)),
                         ],
                       ),
-                    ),
+                    ),  
                     SizedBox(
                       width: 130,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const PagamentoScreen()),
+                            
+                          );
+                        },
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(vertical: 14),
                           backgroundColor: Colors.green[700],
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                         ),
                         child: const Text('Reserve'),
+
                       ),
                     ),
                   ],
