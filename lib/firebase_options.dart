@@ -77,4 +77,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'espacoja-185c4.firebasestorage.app',
     iosBundleId: 'com.example.espacoJa',
   );
+
 }
