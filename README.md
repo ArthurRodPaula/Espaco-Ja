@@ -56,6 +56,28 @@ Arthur Rodrigues – 22402586
  Lucca Lourenço \- 22402225  
  **Turma:** 3A2
 
+ ## **✨ Funcionalidades
+
+Autenticação (Firebase Auth): login e criação de conta com e-mail/senha.
+
+Recuperação de senha: envio de e-mail de redefinição direto da tela “Esqueci minha senha”.
+
+Cadastro completo (ProfileSetup): salva nome, data de nascimento, CPF, telefone, e-mail, role, createdAt, profileComplete no Firestore (/users/{uid}) e atualiza displayName.
+
+Validações de formulário: nome com 2 palavras, data válida (≥ 13 anos), e-mail válido, senha (≥ 6).
+
+CPF válido + termos obrigatórios: validação algorítmica do CPF e checkbox de aceite dos termos.
+
+Navegação por abas (BottomNavigationBar): barra inferior fixa (Mapa / Meus Locais / Perfil) usando IndexedStack para preservar estado.
+
+Mapa interativo (flutter_map + OpenStreetMap): visualização de mapa e adição de marcadores ao tocar.
+
+Meus Locais: listagem de locais do usuário com FAB “Adicionar” que leva ao formulário de Adicionar/Editar Local.
+
+Lista de resultados: cards com imagem, preço, distância e navegação para telas de detalhes.
+
+Tela de detalhes do espaço: carrossel de imagens, botão favoritar, seções de disponibilidade e política de cancelamento, mapa embutido e barra fixa com preço/“Reserve”.
+
 ## **📁 Estrutura do Projeto**
 
 `.`  
@@ -144,4 +166,5 @@ Confirme que `firebase_options.dart` está presente e que o `main.dart` chama:
 * Credenciais de teste: crie um usuário pela própria **tela de cadastro** do app.  
 *   
 * Lembre sempre de dar o comando flutter pub get antes de flutter run para ter certeza que todas as dependências estarão funcionando. Essa observação serve também caso o projeto não abra no navegador inicialmente. 
+
 
