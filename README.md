@@ -32,7 +32,7 @@ O Espaço-Já é um aplicativo multiplataforma (Android e iOS) criado para otimi
 
 * Notificações para lembretes de reserva
 
-## **🔐 Acesso**
+## 🔐 Acesso**
 
 * **Não existe usuário/senha padrão.** Cada pessoa precisa **criar sua própria conta** no app.
 
@@ -166,5 +166,6 @@ Confirme que `firebase_options.dart` está presente e que o `main.dart` chama:
 * Credenciais de teste: crie um usuário pela própria **tela de cadastro** do app.  
 *   
 * Lembre sempre de dar o comando flutter pub get antes de flutter run para ter certeza que todas as dependências estarão funcionando. Essa observação serve também caso o projeto não abra no navegador inicialmente. 
+
 
 
