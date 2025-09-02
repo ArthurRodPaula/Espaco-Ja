@@ -4,10 +4,15 @@ import 'package:flutter/foundation.dart';
 class FunctionsService {
   // Para desenvolvimento, é útil apontar para o emulador local.
   // Em produção, FirebaseFunctions.instance será usado.
-  final FirebaseFunctions _fn = kDebugMode
-      ? FirebaseFunctions.instanceFor(region: 'us-central1')
-        ..useFunctionsEmulator('localhost', 5001
-      : FirebaseFunctions.instanceFor(region: 'us-central1');
+  late final FirebaseFunctions _fn;
+       FunctionsService() {
+    if (kDebugMode) {
+      _fn = FirebaseFunctions.instanceFor(region: 'us-central1');
+      _fn.useFunctionsEmulator('localhost', 5001);
+    } else {
+      _fn = FirebaseFunctions.instanceFor(region: 'us-central1');
+    }
+  }
 
   Future<String> criarLocacao({
     required String localId,
