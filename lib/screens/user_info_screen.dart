@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 
 
+
 class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -11,7 +12,7 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0, // Removido para um visual mais limpo
-        leading: Icon(Icons.arrow_back_ios, color: Colors.black),
+        automaticallyImplyLeading: false, // Impede que o botão de voltar padrão apareça
         actions: [
           IconButton(
             icon: Icon(Icons.more_horiz, color: Colors.black),
@@ -133,7 +134,6 @@ class ProfileScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigation(),
     );
   }
 }
@@ -156,12 +156,8 @@ class ProfileMenuItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.vertical(
-        top: isLast ? Radius.zero : Radius.circular(12),
-        bottom: isLast ? Radius.circular(12) : Radius.zero,
-      ),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         child: Row(
           children: [
             Icon(
@@ -169,68 +165,24 @@ class ProfileMenuItem extends StatelessWidget {
               size: 24,
               color: Colors.black54,
             ),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Expanded(
               child: Text(
                 title,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
                   color: Colors.black87,
                 ),
               ),
             ),
-            Icon(
+            const Icon(
               Icons.chevron_right,
               size: 20,
               color: Colors.black38,
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class BottomNavigation extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 10,
-            offset: Offset(0, -2),
-          ),
-        ],
-      ),
-      child: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildNavItem(Icons.search, false),
-              _buildNavItem(Icons.favorite_outline, false),
-              _buildNavItem(Icons.calendar_today_outlined, false),
-              _buildNavItem(Icons.chat_outlined, false),
-              _buildNavItem(Icons.person, true), // Ativo na tela de perfil
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNavItem(IconData icon, bool isSelected) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-      child: Icon(
-        icon,
-        size: 28,
-        color: isSelected ? Colors.green : Colors.grey,
       ),
     );
   }
