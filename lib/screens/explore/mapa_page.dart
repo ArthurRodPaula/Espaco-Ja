@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:geolocator/geolocator.dart';
 
 /// =======================
 /// TELA: MAPA (HOME)
@@ -17,16 +18,9 @@ class _MapaScreenState extends State<MapaScreen> {
   late final MapController _mapController;
 
   final LatLng _initialCenter = const LatLng(-19.9245, -43.9352);
-  final double _initialZoom = 13;
+  final double _initialZoom = 14;
 
-  final List<Marker> _markers = [
-    const Marker(
-      width: 40,
-      height: 40,
-      point: LatLng(-19.9245, -43.9352),
-      child: Icon(Icons.location_on, size: 40, color: Colors.red),
-    ),
-  ];
+  final List<Marker> _markers = [];
 
   @override
   void initState() {
@@ -34,7 +28,63 @@ class _MapaScreenState extends State<MapaScreen> {
     _mapController = MapController();
   }
 
-  void onItemTapped(int index) => setState(() => selectedIndex = index);
+  /// Pede permissão e obtém a localização atual do GPS.
+  Future<void> _goToCurrentUserLocation() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Testa se o serviço de localização está ativo.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // O serviço de localização não está ativo. Não é possível continuar.
+      // Você pode mostrar um alerta para o usuário aqui.
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        // A permissão foi negada.
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // A permissão foi negada permanentemente.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    // Quando chegamos aqui, as permissões foram concedidas e podemos
+    // acessar a posição do dispositivo.
+    try {
+      final Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+
+      final userLocation = LatLng(position.latitude, position.longitude);
+
+      // Move o mapa para a localização do usuário
+      _mapController.move(userLocation, 15.0);
+
+      // Adiciona um marcador na localização do usuário
+      setState(() {
+        // Remove marcadores antigos de "usuário" se houver
+        _markers.removeWhere((m) => m.key == const Key('user_location'));
+        _markers.add(
+          Marker(
+            key: const Key('user_location'), // Chave para identificar o marcador
+            point: userLocation,
+            child: const Icon(Icons.my_location, size: 28, color: Colors.blueAccent),
+          ),
+        );
+      });
+    } catch (e) {
+      // Tratar possíveis erros ao obter a localização
+      debugPrint("Erro ao obter localização: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +133,17 @@ class _MapaScreenState extends State<MapaScreen> {
             left: 16,
             right: 16,
             child: const _SearchBar(),
+          ),
+
+          // Botão para localizar o usuário
+          Positioned(
+            bottom: 80 + padding.bottom,
+            right: 16,
+            child: FloatingActionButton(
+              onPressed: _goToCurrentUserLocation,
+              backgroundColor: Colors.white,
+              child: Icon(Icons.my_location, color: Colors.grey[800]),
+            ),
           ),
 
           // Botão "Reserve já" -> vai para lista de resultados
