@@ -1,5 +1,6 @@
 import 'package:espaco_ja/screens/explore/mapa_page.dart';
 import 'package:espaco_ja/screens/spaces/meus_locais_page.dart';
+import 'package:espaco_ja/screens/user_info_screen.dart';
 import 'package:flutter/material.dart';
 
 
@@ -95,7 +96,7 @@ class _OpcoesScreenState extends State<OpcoesScreen> {
     _homeBody(context),
     const MapaScreen(),
     const MeusLocaisScreen(),
-    const _PerfilStub(),
+    ProfileScreen(),
   ];
 
   @override
@@ -126,18 +127,6 @@ class _OpcoesScreenState extends State<OpcoesScreen> {
           ],
         ),
       ),
-    );
-  }
-}
-
-// Stub de Perfil — troque pelo seu conteúdo quando quiser
-class _PerfilStub extends StatelessWidget {
-  const _PerfilStub();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Perfil', style: TextStyle(fontSize: 20)),
     );
   }
 }
