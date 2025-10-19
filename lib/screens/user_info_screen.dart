@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:espaco_ja/screens/profile/personal_info_screen.dart';
 
 
 class ProfileScreen extends StatelessWidget {
@@ -8,7 +9,7 @@ class ProfileScreen extends StatelessWidget {
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        elevation: 0,
+        elevation: 0, // Removido para um visual mais limpo
         leading: Icon(Icons.arrow_back_ios, color: Colors.black),
         actions: [
           IconButton(
@@ -87,7 +88,12 @@ class ProfileScreen extends StatelessWidget {
                   ProfileMenuItem(
                     icon: Icons.person_outline,
                     title: 'Informações pessoais',
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const PersonalInfoScreen()),
+                      );
+                    },
                   ),
                   Divider(height: 1, indent: 56),
                   ProfileMenuItem(
