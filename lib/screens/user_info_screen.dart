@@ -1,5 +1,6 @@
+import 'package:espaco_ja/screens/personal_info_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:espaco_ja/screens/profile/personal_info_screen.dart';
+
 
 
 class ProfileScreen extends StatelessWidget {
