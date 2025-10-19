@@ -41,26 +41,6 @@ class _MapaScreenState extends State<MapaScreen> {
     final padding = MediaQuery.of(context).padding;
 
     return Scaffold(
-            bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0, // índice atual dessa tela
-        selectedItemColor: Colors.green[700],
-        unselectedItemColor: Colors.grey,
-        onTap: (index) {
-          if (index == 2) { // 📍 Locações
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (_) => const MapaScreen()),
-            );
-          }
-        },
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Buscar'),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite_border), label: 'Wishlist'),
-          BottomNavigationBarItem(icon: Icon(Icons.location_on_outlined), label: 'Locações'),
-          BottomNavigationBarItem(icon: Icon(Icons.chat_bubble_outline), label: 'Inbox'),
-          BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: 'Profile'),
-        ],
-      ),
       body: Stack(
         fit: StackFit.expand,
         children: [
@@ -107,7 +87,7 @@ class _MapaScreenState extends State<MapaScreen> {
 
           // Botão "Reserve já" -> vai para lista de resultados
           Positioned(
-            bottom: 70 + padding.bottom,
+            bottom: 16 + padding.bottom,
             left: 16,
             right: 16,
             child: _ReserveButton(
@@ -272,15 +252,28 @@ class ResultadosListaScreen extends StatelessWidget {
 
       // Bottom bar
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
+        currentIndex: 0, // Assumindo que esta tela é parte do fluxo 'Explorar'
         selectedItemColor: Colors.green[700],
         unselectedItemColor: Colors.grey,
+        onTap: (index) {
+          if (index == 2) { // 📍 Locações
+            // Navega de volta para a tela do mapa
+            Navigator.of(context).pop();
+          }
+          // Adicione a lógica para outros itens se necessário
+        },
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Buscar'),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite_border), label: 'Wishlist'),
-          BottomNavigationBarItem(icon: Icon(Icons.location_on_outlined), label: 'Locações'),
-          BottomNavigationBarItem(icon: Icon(Icons.chat_bubble_outline), label: 'Inbox'),
-          BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: 'Profile'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.explore_outlined),
+            activeIcon: Icon(Icons.explore),
+            label: 'Explorar',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite_border),
+            activeIcon: Icon(Icons.favorite),
+            label: 'Favoritos',
+          ),
+          BottomNavigationBarItem(icon: Icon(Icons.location_on), label: 'Locações'),
         ],
       ),
     );
