@@ -1,7 +1,8 @@
+import 'package:espaco_ja/screens/auth/profile_setup_page.dart';
+import 'package:espaco_ja/screens/home/opcoes_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'opcoes_screen.dart';
-import 'profile_setup_screen.dart';
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

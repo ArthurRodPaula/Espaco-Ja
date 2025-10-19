@@ -1,6 +1,7 @@
+import 'package:espaco_ja/screens/explore/mapa_page.dart';
+import 'package:espaco_ja/screens/spaces/meus_locais_page.dart';
 import 'package:flutter/material.dart';
-import 'package:espaco_ja/screens/meus_locais.dart';
-import 'mapa_screen.dart';
+
 
 class OpcoesScreen extends StatefulWidget {
   const OpcoesScreen({super.key});
