@@ -1,3 +1,4 @@
+import 'package:espaco_ja/screens/caixa_entrada_screen.dart';
 import 'package:espaco_ja/screens/explore/mapa_page.dart';
 import 'package:espaco_ja/screens/spaces/meus_locais_page.dart';
 import 'package:espaco_ja/screens/user_info_screen.dart';
@@ -96,6 +97,7 @@ class _OpcoesScreenState extends State<OpcoesScreen> {
     _homeBody(context),
     const MapaScreen(),
     const MeusLocaisScreen(),
+    const InboxScreen(),
     ProfileScreen(),
   ];
 
@@ -123,6 +125,7 @@ class _OpcoesScreenState extends State<OpcoesScreen> {
             BottomNavigationBarItem(icon: Icon(Icons.home_rounded), label: 'Início'),
             BottomNavigationBarItem(icon: Icon(Icons.map_rounded), label: 'Mapa'),
             BottomNavigationBarItem(icon: Icon(Icons.store_mall_directory_rounded), label: 'Meus locais'),
+            BottomNavigationBarItem(icon: Icon(Icons.mail_outline_rounded), label: 'Mensagens'),
             BottomNavigationBarItem(icon: Icon(Icons.person_rounded), label: 'Perfil'),
           ],
         ),
