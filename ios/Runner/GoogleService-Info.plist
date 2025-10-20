@@ -13,7 +13,7 @@
 	<key>PROJECT_ID</key>
 	<string>espacoja-185c4</string>
 	<key>STORAGE_BUCKET</key>
-	<string>espacoja-185c4.firebasestorage.app</string>
+	<string>espacoja-185c4.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
