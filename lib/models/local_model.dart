@@ -31,6 +31,38 @@ class LocalModel {
     this.updatedAt,
   });
 
+  LocalModel copyWith({
+    String? id,
+    String? ownerUid,
+    String? nome,
+    String? descricao,
+    String? endereco,
+    String? cidade,
+    String? uf,
+    int? capacidade,
+    double? precoHora,
+    List<String>? fotos,
+    bool? ativo,
+    Timestamp? createdAt,
+    Timestamp? updatedAt,
+  }) {
+    return LocalModel(
+      id: id ?? this.id,
+      ownerUid: ownerUid ?? this.ownerUid,
+      nome: nome ?? this.nome,
+      descricao: descricao ?? this.descricao,
+      endereco: endereco ?? this.endereco,
+      cidade: cidade ?? this.cidade,
+      uf: uf ?? this.uf,
+      capacidade: capacidade ?? this.capacidade,
+      precoHora: precoHora ?? this.precoHora,
+      fotos: fotos ?? this.fotos,
+      ativo: ativo ?? this.ativo,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
+
   factory LocalModel.fromFirestore(DocumentSnapshot<Map<String, dynamic>> doc) {
     final d = doc.data()!;
     return LocalModel(
