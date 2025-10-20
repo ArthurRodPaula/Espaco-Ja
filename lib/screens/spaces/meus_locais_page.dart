@@ -1,7 +1,9 @@
 import 'package:espaco_ja/screens/spaces/add_editar_local_page.dart';
+import 'package:espaco_ja/services/firestore_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import '../../models/local_model.dart';
 
 
 
@@ -409,53 +411,93 @@ class DetalhesCoworkingScreen extends StatelessWidget {
 /// =======================
 /// LISTA DE LOCAIS (com botão "Adicionar")
 /// =======================
-class MeusLocaisScreen extends StatelessWidget {
+class MeusLocaisScreen extends StatefulWidget {
   const MeusLocaisScreen({super.key});
+
+  @override
+  State<MeusLocaisScreen> createState() => _MeusLocaisScreenState();
+}
+
+class _MeusLocaisScreenState extends State<MeusLocaisScreen> {
+  final FirestoreService _firestoreService = FirestoreService();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Meus locais'), leading: const BackButton()),
+      appBar: AppBar(
+        title: const Text('Meus locais'),
+        // O BackButton é desnecessário se esta tela faz parte da navegação por abas
+        automaticallyImplyLeading: false,
+      ),
+      body: StreamBuilder<List<LocalModel>>(
+        stream: _firestoreService.meusLocais(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.hasError) {
+            return Center(child: Text('Erro: ${snapshot.error}'));
+          }
+          final locais = snapshot.data ?? [];
 
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            InkWell(
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const DetalhesCoworkingScreen()),
-              ),
-              child: Row(
+          if (locais.isEmpty) {
+            return Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image.asset('assets/images/cowork.jpg', width: 60, height: 60, fit: BoxFit.cover),
+                  Icon(Icons.store_mall_directory_outlined, size: 60, color: Colors.grey[400]),
+                  const SizedBox(height: 16),
+                  const Text(
+                    'Você ainda não adicionou nenhum local.',
+                    style: TextStyle(fontSize: 16, color: Colors.black54),
                   ),
-                  const SizedBox(width: 12),
-                  const Expanded(child: Text('co‑working centro de BH')),
+                  const SizedBox(height: 8),
+                  const Text(
+                    'Clique em "Adicionar" para começar.',
+                    style: TextStyle(color: Colors.black45),
+                  ),
                 ],
               ),
-            ),
-            const SizedBox(height: 20),
-            InkWell(
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const DetalhesSalaoScreen()),
-              ),
-              child: Row(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image.asset('assets/images/salao.jpeg', width: 60, height: 60, fit: BoxFit.cover),
-                  ),
-                  const SizedBox(width: 12),
-                  const Expanded(child: Text('salão de eventos em Gutierrez')),
-                ],
-              ),
-            ),
-          ],
-        ),
+            );
+          }
+
+          return ListView.builder(
+            padding: const EdgeInsets.all(16),
+            itemCount: locais.length,
+            itemBuilder: (context, index) {
+              final local = locais[index];
+              return Card(
+                margin: const EdgeInsets.only(bottom: 12),
+                child: ListTile(
+                  leading: local.fotos.isNotEmpty
+                      ? ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.network(
+                            local.fotos.first,
+                            width: 60,
+                            height: 60,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              // Mostra um ícone de erro amigável se a imagem não carregar
+                              return const Icon(Icons.broken_image, size: 40, color: Colors.grey);
+                            },
+                          ),
+                        )
+                      : const Icon(Icons.place, size: 40), // Placeholder para imagem
+                  title: Text(local.nome),
+                  subtitle: Text(local.descricao ?? 'Sem descrição'),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => AddEditarLocalScreen(local: local)),
+                    );
+                  },
+                ),
+              );
+            },
+          );
+        },
       ),
 
       // ✅ Botão de adicionar que leva à tela de formulário

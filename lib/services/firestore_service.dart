@@ -21,6 +21,16 @@ class FirestoreService {
     await _db.collection('locais').doc(id).delete();
   }
 
+  /// Gera um novo ID de documento único para a coleção 'locais'.
+  String getNewId() {
+    return _db.collection('locais').doc().id;
+  }
+
+  /// Adiciona um local usando um ID pré-definido.
+  Future<void> adicionarLocalComId(LocalModel local) async {
+    await _db.collection('locais').doc(local.id).set(local.toMapForCreate());
+  }
+
   Stream<List<LocalModel>> listarLocaisAtivos({String? cidade}) {
     Query<Map<String, dynamic>> q =
         _db.collection('locais').where('ativo', isEqualTo: true);
