@@ -42,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Text('Tela de Início', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
     Text('Tela do Mapa', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
     Text('Tela de Meus Locais', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+    Text('Tela de Mensagens', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
     Text('Tela de Perfil', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
   ];
 
@@ -76,6 +77,10 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.storefront), // Usando storefront para "Meus locais"
             label: 'Meus locais',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.mail_outline_rounded),
+            label: 'Mensagens',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_outline),

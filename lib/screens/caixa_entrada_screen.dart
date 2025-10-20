@@ -41,25 +41,6 @@ class _InboxScreenState extends State<InboxScreen>
           ),
         ),
         centerTitle: false,
-        bottom: TabBar(
-          controller: _tabController,
-          labelColor: Colors.black,
-          unselectedLabelColor: Colors.grey,
-          indicatorColor: Colors.green,
-          indicatorWeight: 2,
-          labelStyle: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-          ),
-          unselectedLabelStyle: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w400,
-          ),
-          tabs: const [
-            Tab(text: 'Mensagens'),
-            Tab(text: 'Notificações'),
-          ],
-        ),
       ),
       body: TabBarView(
         controller: _tabController,

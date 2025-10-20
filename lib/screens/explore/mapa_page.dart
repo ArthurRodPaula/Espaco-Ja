@@ -1,3 +1,4 @@
+import 'package:espaco_ja/screens/caixa_entrada_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
@@ -320,6 +321,11 @@ class ResultadosListaScreen extends StatelessWidget {
           if (index == 2) { // 📍 Locações
             // Navega de volta para a tela do mapa
             Navigator.of(context).pop();
+          } else if (index == 3) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const InboxScreen()),
+            );
           }
           // Adicione a lógica para outros itens se necessário
         },
@@ -335,6 +341,7 @@ class ResultadosListaScreen extends StatelessWidget {
             label: 'Favoritos',
           ),
           BottomNavigationBarItem(icon: Icon(Icons.location_on), label: 'Locações'),
+          BottomNavigationBarItem(icon: Icon(Icons.mail_outline_rounded), label: 'Mensagens'),
         ],
       ),
     );
