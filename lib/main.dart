@@ -1,3 +1,4 @@
+import 'package:espaco_ja/screens/home/opcoes_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'screens/auth/auth_gate.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
         // ✅ Correção: Garante que o fundo do Scaffold seja transparente por padrão
         scaffoldBackgroundColor: Colors.transparent,
       ),
-      home: const AuthGate(),
+      home: const OpcoesScreen(),
 
       debugShowCheckedModeBanner: false,
     );
