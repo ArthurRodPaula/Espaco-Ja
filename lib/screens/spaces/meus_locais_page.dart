@@ -1,4 +1,4 @@
-import 'package:espaco_ja/screens/pagamento/dados_screen.dart';
+import 'package:espaco_ja/screens/pagamento/pagamento_screen.dart';
 import 'package:espaco_ja/screens/spaces/add_editar_local_page.dart';
 import 'package:espaco_ja/services/firestore_service.dart';
 import 'package:flutter/material.dart';
@@ -326,7 +326,7 @@ class _DetalhesBaseState extends State<_DetalhesBase> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const DadosScreen()),
+                            MaterialPageRoute(builder: (context) => const PagamentoScreen()),
                           );
                         },
                         style: ElevatedButton.styleFrom(
@@ -490,7 +490,7 @@ class _MeusLocaisScreenState extends State<MeusLocaisScreen> {
                           ),
                         )
                       : const Icon(Icons.place, size: 40), // Placeholder para imagem
-                  title: Text(local.nome),
+                  title: Text(local.nome ?? 'Local sem nome'),
                   subtitle: Text(local.descricao ?? 'Sem descrição'),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () {
