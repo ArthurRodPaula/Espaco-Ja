@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF6750A4)),
         useMaterial3: true,
       ),
-      home: const OpcoesScreen(),
+      home: const AuthGate(),
 
       debugShowCheckedModeBanner: false,
     );

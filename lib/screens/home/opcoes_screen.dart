@@ -14,7 +14,6 @@ class OpcoesScreen extends StatefulWidget {
 
 class _OpcoesScreenState extends State<OpcoesScreen> {
   int _tabIndex = 0;
-  String? escolha;
 
   // ---------- Aba HOME (seu layout atual) ----------
   Widget _homeBody(BuildContext context) {
@@ -34,52 +33,28 @@ class _OpcoesScreenState extends State<OpcoesScreen> {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 40),
-            CheckboxListTile(
-              title: const Text('Anunciar meu espaço'),
-              value: escolha == 'Anunciar meu espaço',
-              onChanged: (value) {
-                setState(() {
-                  if (value == true) {
-                    escolha = 'Anunciar meu espaço';
-                  } else {
-                    escolha = null;
-                  }
-                });
-              },
-              activeColor: Colors.green[600],
-              controlAffinity: ListTileControlAffinity.leading,
-            ),
-            CheckboxListTile(
-              title: const Text('Alugar espaços'),
-              value: escolha == 'Alugar espaços',
-              onChanged: (value) {
-                setState(() {
-                  if (value == true) {
-                    escolha = 'Alugar espaços';
-                  } else {
-                    escolha = null;
-                  }
-                });
-              },
-              activeColor: Colors.green[600],
-              controlAffinity: ListTileControlAffinity.leading,
-            ),
-            const SizedBox(height: 100),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: escolha == null ? Colors.grey : Colors.green[600],
-                minimumSize: const Size(double.infinity, 48),
+                backgroundColor: Colors.green[600],
+                minimumSize: const Size(double.infinity, 52),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
               ),
-              onPressed: escolha == null
-                  ? null
-                  : () {
-                      if (escolha == 'Anunciar meu espaço') {
-                        setState(() => _tabIndex = 2); // Meus Locais
-                      } else {
-                        setState(() => _tabIndex = 1); // Mapa
-                      }
-                    },
-              child: const Text('Continuar'),
+              onPressed: () => setState(() => _tabIndex = 2), // Meus Locais
+              child: const Text('Anunciar meu espaço', style: TextStyle(fontSize: 18)),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.green[600],
+                minimumSize: const Size(double.infinity, 52),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              onPressed: () => setState(() => _tabIndex = 1), // Mapa
+              child: const Text('Alugar espaços', style: TextStyle(fontSize: 18)),
             ),
           ],
         ),

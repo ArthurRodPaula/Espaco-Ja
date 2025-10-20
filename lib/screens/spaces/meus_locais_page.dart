@@ -1,3 +1,4 @@
+import 'package:espaco_ja/screens/pagamento/dados_screen.dart';
 import 'package:espaco_ja/screens/spaces/add_editar_local_page.dart';
 import 'package:espaco_ja/services/firestore_service.dart';
 import 'package:flutter/material.dart';
@@ -322,13 +323,18 @@ class _DetalhesBaseState extends State<_DetalhesBase> {
                     SizedBox(
                       width: 130,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const DadosScreen()),
+                          );
+                        },
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(vertical: 14),
                           backgroundColor: Colors.green[700],
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                         ),
-                        child: const Text('Reserve'),
+                        child: const Text('Reserve já'),
                       ),
                     ),
                   ],

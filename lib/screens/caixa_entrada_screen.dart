@@ -76,7 +76,6 @@ class _InboxScreenState extends State<InboxScreen>
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigation(currentIndex: 3),
     );
   }
 }
