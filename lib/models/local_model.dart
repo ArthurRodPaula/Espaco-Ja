@@ -1,34 +1,38 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LocalModel {
-  final String id;
-  final String ownerUid;
-  final String nome;
-  final String descricao;
-  final String endereco;
-  final String cidade;
-  final String uf;
+  final String? id;
+  final String? ownerUid;
+  final String? nome;
+  final String? descricao;
+  final String? endereco;
+  final String? cidade;
+  final String? uf;
   final int capacidade;
   final double precoHora;
   final List<String> fotos;
   final bool ativo;
   final Timestamp? createdAt;
   final Timestamp? updatedAt;
+  final double? latitude;
+  final double? longitude;
 
   LocalModel({
-    required this.id,
-    required this.ownerUid,
-    required this.nome,
-    required this.descricao,
-    required this.endereco,
-    required this.cidade,
-    required this.uf,
+    this.id,
+    this.ownerUid,
+    this.nome,
+    this.descricao,
+    this.endereco,
+    this.cidade,
+    this.uf,
     required this.capacidade,
     required this.precoHora,
     required this.fotos,
     required this.ativo,
     this.createdAt,
     this.updatedAt,
+    this.latitude,
+    this.longitude,
   });
 
   LocalModel copyWith({
@@ -45,6 +49,8 @@ class LocalModel {
     bool? ativo,
     Timestamp? createdAt,
     Timestamp? updatedAt,
+    double? latitude,
+    double? longitude,
   }) {
     return LocalModel(
       id: id ?? this.id,
@@ -60,6 +66,8 @@ class LocalModel {
       ativo: ativo ?? this.ativo,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
+      latitude: latitude ?? this.latitude,
+      longitude: longitude ?? this.longitude,
     );
   }
 
@@ -67,8 +75,8 @@ class LocalModel {
     final d = doc.data()!;
     return LocalModel(
       id: doc.id,
-      ownerUid: d['ownerUid'] as String,
-      nome: d['nome'] as String,
+      ownerUid: d['ownerUid'] as String?,
+      nome: d['nome'] as String?,
       descricao: (d['descricao'] ?? '') as String,
       endereco: (d['endereco'] ?? '') as String,
       cidade: (d['cidade'] ?? '') as String,
@@ -79,12 +87,14 @@ class LocalModel {
       ativo: (d['ativo'] ?? true) as bool,
       createdAt: d['createdAt'] as Timestamp?,
       updatedAt: d['updatedAt'] as Timestamp?,
+      latitude: (d['latitude'] as num?)?.toDouble(),
+      longitude: (d['longitude'] as num?)?.toDouble(),
     );
   }
 
   Map<String, dynamic> toMapForCreate() => {
-        'ownerUid': ownerUid,
-        'nome': nome,
+        'ownerUid': ownerUid ?? '',
+        'nome': nome ?? '',
         'descricao': descricao,
         'endereco': endereco,
         'cidade': cidade,
@@ -95,10 +105,12 @@ class LocalModel {
         'ativo': ativo,
         'createdAt': FieldValue.serverTimestamp(),
         'updatedAt': FieldValue.serverTimestamp(),
+        'latitude': latitude,
+        'longitude': longitude,
       };
 
   Map<String, dynamic> toMapForUpdate() => {
-        'nome': nome,
+        'nome': nome ?? '',
         'descricao': descricao,
         'endereco': endereco,
         'cidade': cidade,
@@ -108,5 +120,7 @@ class LocalModel {
         'fotos': fotos,
         'ativo': ativo,
         'updatedAt': FieldValue.serverTimestamp(),
+        'latitude': latitude,
+        'longitude': longitude,
       };
 }

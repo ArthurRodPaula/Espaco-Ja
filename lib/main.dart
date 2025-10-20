@@ -19,8 +19,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Espaço Já',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF6750A4)),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF2E7D32)), // Usando o verde como cor base
         useMaterial3: true,
+        // ✅ Correção: Garante que o fundo do Scaffold seja transparente por padrão
+        scaffoldBackgroundColor: Colors.transparent,
       ),
       home: const AuthGate(),
 

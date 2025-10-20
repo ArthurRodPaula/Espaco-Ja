@@ -6,6 +6,8 @@ import 'storage_service.dart'; // Importar StorageService (caminho relativo)
 import 'package:http/http.dart' as http; // Para carregar imagens de URL
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
 
 class AddEditarLocalScreen extends StatefulWidget {
   static const routeName = '/local/novo';
@@ -31,6 +33,7 @@ class _AddEditarLocalScreenState extends State<AddEditarLocalScreen> {
   Uint8List? _fotoCapaBytes; // pré-visualização da primeira foto (compatível com web)
   bool _salvando = false;
   bool _fotoFoiAlterada = false; // Novo: para rastrear se a imagem foi tocada
+  LatLng? _coordenadasSelecionadas;
 
   bool get _isEditing => widget.local != null;
 
@@ -39,6 +42,11 @@ class _AddEditarLocalScreenState extends State<AddEditarLocalScreen> {
     super.initState();
     _tituloCtrl = TextEditingController(text: widget.local?.nome ?? '');
     _descCtrl = TextEditingController(text: widget.local?.descricao ?? '');
+
+    if (_isEditing && widget.local?.latitude != null && widget.local?.longitude != null) {
+      _coordenadasSelecionadas =
+          LatLng(widget.local!.latitude!, widget.local!.longitude!);
+    }
 
     // Se estiver editando e houver uma foto existente, carregá-la para pré-visualização
     if (_isEditing && widget.local!.fotos.isNotEmpty) {
@@ -94,6 +102,22 @@ class _AddEditarLocalScreenState extends State<AddEditarLocalScreen> {
     }
   }
 
+  // ======== SELECIONAR LOCALIZAÇÃO ========
+  Future<void> _selecionarLocalizacao() async {
+    final LatLng? resultado = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => MapPickerScreen(initialLocation: _coordenadasSelecionadas),
+      ),
+    );
+
+    if (resultado != null) {
+      setState(() {
+        _coordenadasSelecionadas = resultado;
+      });
+    }
+  }
+
   // ======== SALVAR ========
   Future<void> _salvar() async {
     final valido = _formKey.currentState?.validate() ?? false;
@@ -119,7 +143,7 @@ class _AddEditarLocalScreenState extends State<AddEditarLocalScreen> {
           }
           // Se uma nova foto foi adicionada/trocada, faça o upload.
           else if (_fotoCapaBytes != null) {
-            final String novaUrl = await _storageService.uploadLocalImage(_fotoCapaBytes!, user.uid, widget.local!.id);
+            final String novaUrl = await _storageService.uploadLocalImage(_fotoCapaBytes!, user.uid, widget.local!.id!);
             // Se existia uma foto antiga, delete-a.
             if (urlAntiga != null) {
               await _storageService.deleteImage(urlAntiga);
@@ -132,6 +156,8 @@ class _AddEditarLocalScreenState extends State<AddEditarLocalScreen> {
           nome: _tituloCtrl.text.trim(),
           descricao: _descCtrl.text.trim(),
           fotos: fotosFinais,
+          latitude: _coordenadasSelecionadas?.latitude,
+          longitude: _coordenadasSelecionadas?.longitude,
         );
         await _firestoreService.atualizarLocal(localAtualizado); // Atualiza no Firestore
         if (!mounted) return;
@@ -162,6 +188,8 @@ class _AddEditarLocalScreenState extends State<AddEditarLocalScreen> {
           ativo: true,
           fotos: fotosUrl, // Adiciona a lista de URLs
           endereco: '', cidade: '', uf: '', capacidade: 0, precoHora: 0.0,
+          latitude: _coordenadasSelecionadas?.latitude,
+          longitude: _coordenadasSelecionadas?.longitude,
         );
         await _firestoreService.adicionarLocalComId(novoLocalBase);
         
@@ -208,7 +236,7 @@ class _AddEditarLocalScreenState extends State<AddEditarLocalScreen> {
       }
 
       // 2. Deletar o documento do Firestore
-      await _firestoreService.removerLocal(widget.local!.id);
+      await _firestoreService.removerLocal(widget.local!.id!);
 
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Espaço removido com sucesso!')));
@@ -343,6 +371,38 @@ class _AddEditarLocalScreenState extends State<AddEditarLocalScreen> {
 
               const SizedBox(height: 20),
 
+              // ======= SELETOR DE LOCALIZAÇÃO =======
+              const Text(
+                'Onde fica seu espaço?',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+              ),
+              const SizedBox(height: 10),
+              Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey.shade300),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: ListTile(
+                  leading: const Icon(Icons.map_outlined, color: Color(0xFF2E7D32)),
+                  title: Text(
+                    _coordenadasSelecionadas == null
+                        ? 'Definir localização no mapa'
+                        : 'Localização definida!',
+                  ),
+                  subtitle: _coordenadasSelecionadas != null
+                      ? Text(
+                          'Lat: ${_coordenadasSelecionadas!.latitude.toStringAsFixed(5)}, '
+                          'Lng: ${_coordenadasSelecionadas!.longitude.toStringAsFixed(5)}',
+                          style: const TextStyle(fontSize: 12),
+                        )
+                      : null,
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: _selecionarLocalizacao,
+                ),
+              ),
+              const SizedBox(height: 20),
+
+
               // ======= BOTÃO VERDE GRANDE =======
               SizedBox(
                 width: double.infinity,
@@ -360,6 +420,78 @@ class _AddEditarLocalScreenState extends State<AddEditarLocalScreen> {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+/// =================================================
+/// TELA AUXILIAR PARA SELECIONAR PONTO NO MAPA
+/// =================================================
+class MapPickerScreen extends StatefulWidget {
+  final LatLng? initialLocation;
+
+  const MapPickerScreen({super.key, this.initialLocation});
+
+  @override
+  State<MapPickerScreen> createState() => _MapPickerScreenState();
+}
+
+class _MapPickerScreenState extends State<MapPickerScreen> {
+  final MapController _mapController = MapController();
+  LatLng? _selectedLocation;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedLocation = widget.initialLocation;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Selecione a Localização'),
+        actions: [
+          if (_selectedLocation != null)
+            IconButton(
+              icon: const Icon(Icons.check),
+              onPressed: () => Navigator.of(context).pop(_selectedLocation),
+            ),
+        ],
+      ),
+      body: FlutterMap(
+        mapController: _mapController,
+        options: MapOptions(
+          initialCenter: widget.initialLocation ?? const LatLng(-19.9245, -43.9352), // BH como padrão
+          initialZoom: 15,
+          onTap: (tapPosition, point) {
+            setState(() {
+              _selectedLocation = point;
+            });
+          },
+        ),
+        children: [
+          TileLayer(
+            urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            subdomains: const ['a', 'b', 'c'],
+            userAgentPackageName: 'com.example.espaco_ja',
+          ),
+          if (_selectedLocation != null)
+            MarkerLayer(
+              markers: [
+                Marker(
+                  point: _selectedLocation!,
+                  child: const Icon(Icons.place, size: 40, color: Colors.redAccent),
+                ),
+              ],
+            ),
+          RichAttributionWidget(
+            attributions: const [
+              TextSourceAttribution('© OpenStreetMap contributors', prependCopyright: true),
+            ],
+          ),
+        ],
       ),
     );
   }

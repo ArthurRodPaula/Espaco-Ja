@@ -93,13 +93,22 @@ class _OpcoesScreenState extends State<OpcoesScreen> {
   }
 
   // ---------- Conteúdo das abas ----------
-  late final List<Widget> _tabs = <Widget>[
-    _homeBody(context),
-    const MapaScreen(),
-    const MeusLocaisScreen(),
-    const InboxScreen(),
-    ProfileScreen(),
-  ];
+  // ✅ Correção: Declarar a lista de telas fora do build para que não sejam recriadas.
+  final List<Widget> _tabs = [];
+
+  @override
+  void initState() {
+    super.initState();
+    // Inicializa as telas uma única vez.
+    // Passamos o contexto do builder para a primeira tela.
+    _tabs.addAll([
+      Builder(builder: (context) => _homeBody(context)),
+      const MapaScreen(),
+      const MeusLocaisScreen(),
+      const InboxScreen(),
+      ProfileScreen(),
+    ]);
+  }
 
   @override
   Widget build(BuildContext context) {

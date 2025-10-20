@@ -49,7 +49,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '969330776178',
     projectId: 'espacoja-185c4',
     authDomain: 'espacoja-185c4.firebaseapp.com',
-    storageBucket: 'espacoja-185c4.firebasestorage.app',
+    storageBucket: 'espacoja-185c4.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
@@ -57,7 +57,7 @@ class DefaultFirebaseOptions {
     appId: '1:969330776178:android:e990952fe25e7a32f38aeb',
     messagingSenderId: '969330776178',
     projectId: 'espacoja-185c4',
-    storageBucket: 'espacoja-185c4.firebasestorage.app',
+    storageBucket: 'espacoja-185c4.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
@@ -65,7 +65,7 @@ class DefaultFirebaseOptions {
     appId: '1:969330776178:ios:ba8f4fadc5a1b797f38aeb',
     messagingSenderId: '969330776178',
     projectId: 'espacoja-185c4',
-    storageBucket: 'espacoja-185c4.firebasestorage.app',
+    storageBucket: 'espacoja-185c4.appspot.com',
     iosBundleId: 'com.example.espacoJa',
   );
 
@@ -74,7 +74,7 @@ class DefaultFirebaseOptions {
     appId: '1:969330776178:ios:ba8f4fadc5a1b797f38aeb',
     messagingSenderId: '969330776178',
     projectId: 'espacoja-185c4',
-    storageBucket: 'espacoja-185c4.firebasestorage.app',
+    storageBucket: 'espacoja-185c4.appspot.com',
     iosBundleId: 'com.example.espacoJa',
   );
 
