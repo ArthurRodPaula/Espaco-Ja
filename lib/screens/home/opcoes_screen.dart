@@ -18,39 +18,6 @@ class _OpcoesScreenState extends State<OpcoesScreen> {
 
   // ---------- Aba HOME (seu layout atual) ----------
   Widget _homeBody(BuildContext context) {
-    Widget opcaoWidget(String texto) {
-      final selecionado = escolha == texto;
-      return GestureDetector(
-        onTap: () => setState(() => escolha = texto),
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
-          margin: const EdgeInsets.symmetric(vertical: 8),
-          decoration: BoxDecoration(
-            color: selecionado ? Colors.green[600] : Colors.grey[200],
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(
-              color: (selecionado ? Colors.green[800] : Colors.grey[400])!,
-              width: 2,
-            ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                texto,
-                style: TextStyle(
-                  color: selecionado ? Colors.white : Colors.black87,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              if (selecionado) const Icon(Icons.check_circle, color: Colors.white),
-            ],
-          ),
-        ),
-      );
-    }
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24.0),
       child: Center(
@@ -67,8 +34,36 @@ class _OpcoesScreenState extends State<OpcoesScreen> {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 40),
-            opcaoWidget('Anunciar meu espaço'),
-            opcaoWidget('Alugar espaços'),
+            CheckboxListTile(
+              title: const Text('Anunciar meu espaço'),
+              value: escolha == 'Anunciar meu espaço',
+              onChanged: (value) {
+                setState(() {
+                  if (value == true) {
+                    escolha = 'Anunciar meu espaço';
+                  } else {
+                    escolha = null;
+                  }
+                });
+              },
+              activeColor: Colors.green[600],
+              controlAffinity: ListTileControlAffinity.leading,
+            ),
+            CheckboxListTile(
+              title: const Text('Alugar espaços'),
+              value: escolha == 'Alugar espaços',
+              onChanged: (value) {
+                setState(() {
+                  if (value == true) {
+                    escolha = 'Alugar espaços';
+                  } else {
+                    escolha = null;
+                  }
+                });
+              },
+              activeColor: Colors.green[600],
+              controlAffinity: ListTileControlAffinity.leading,
+            ),
             const SizedBox(height: 100),
             ElevatedButton(
               style: ElevatedButton.styleFrom(

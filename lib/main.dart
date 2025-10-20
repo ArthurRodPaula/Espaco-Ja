@@ -1,3 +1,4 @@
+import 'package:espaco_ja/screens/home/opcoes_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'screens/auth/auth_gate.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF6750A4)),
         useMaterial3: true,
       ),
-      home: const AuthGate(),
+      home: const OpcoesScreen(),
 
       debugShowCheckedModeBanner: false,
     );
