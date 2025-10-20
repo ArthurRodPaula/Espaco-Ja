@@ -56,8 +56,12 @@ class _AddEditarLocalScreenState extends State<AddEditarLocalScreen> {
         });
       }
     } catch (e) {
-      debugPrint('Erro ao carregar imagem da URL: $e');
-      // Opcional: mostrar um SnackBar de erro ou fallback para nenhuma imagem
+      debugPrint('Erro ao carregar imagem da URL para pré-visualização: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Falha ao carregar a imagem existente. Verifique sua conexão ou a configuração de CORS do Storage.')),
+        );
+      }
     }
   }
 
@@ -174,11 +178,62 @@ class _AddEditarLocalScreenState extends State<AddEditarLocalScreen> {
     }
   }
 
+  // ======== REMOVER ========
+  Future<void> _remover() async {
+    final confirmado = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Confirmar Exclusão'),
+        content: const Text('Tem certeza de que deseja remover este espaço? Esta ação não pode ser desfeita.'),
+        actions: [
+          TextButton(onPressed: () => Navigator.of(ctx).pop(false), child: const Text('Cancelar')),
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(true),
+            child: const Text('Remover', style: TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmado != true) return;
+
+    setState(() => _salvando = true);
+
+    try {
+      // 1. Deletar as fotos do Storage
+      if (widget.local!.fotos.isNotEmpty) {
+        for (final url in widget.local!.fotos) {
+          await _storageService.deleteImage(url);
+        }
+      }
+
+      // 2. Deletar o documento do Firestore
+      await _firestoreService.removerLocal(widget.local!.id);
+
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Espaço removido com sucesso!')));
+      Navigator.of(context).pop(); // Volta para a lista
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Erro ao remover: ${e.toString()}')));
+    } finally {
+      if (mounted) setState(() => _salvando = false);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(_isEditing ? 'Editar Espaço' : 'Adicionar Espaço'),
+        actions: [
+          if (_isEditing)
+            IconButton(
+              icon: const Icon(Icons.delete_outline),
+              onPressed: _salvando ? null : _remover,
+              tooltip: 'Remover Espaço',
+            ),
+        ],
       ),
       body: SafeArea(
         child: Form(

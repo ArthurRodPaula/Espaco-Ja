@@ -472,7 +472,16 @@ class _MeusLocaisScreenState extends State<MeusLocaisScreen> {
                   leading: local.fotos.isNotEmpty
                       ? ClipRRect(
                           borderRadius: BorderRadius.circular(8),
-                          child: Image.network(local.fotos.first, width: 60, height: 60, fit: BoxFit.cover),
+                          child: Image.network(
+                            local.fotos.first,
+                            width: 60,
+                            height: 60,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              // Mostra um ícone de erro amigável se a imagem não carregar
+                              return const Icon(Icons.broken_image, size: 40, color: Colors.grey);
+                            },
+                          ),
                         )
                       : const Icon(Icons.place, size: 40), // Placeholder para imagem
                   title: Text(local.nome),
