@@ -1,5 +1,7 @@
 import 'package:espaco_ja/screens/caixa_entrada_screen.dart';
+import 'package:espaco_ja/screens/pagamento/dados_local_screen.dart';
 import 'package:espaco_ja/screens/spaces/add_editar_local_page.dart';
+import 'package:espaco_ja/screens/spaces/meus_locais_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
@@ -159,7 +161,12 @@ class _MapaScreenState extends State<MapaScreen> {
             bottom: 16 + padding.bottom,
             left: 16,
             right: 16,
-            child: _ReserveButton(color: Colors.green[700]!, onPressed: () {}),
+            child: _ReserveButton(color: Colors.green[700]!, onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const BookingDetailsScreen()),
+              );
+            }),
           ),
         ],
       ),
