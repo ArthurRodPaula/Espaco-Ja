@@ -1,5 +1,3 @@
-import 'package:espaco_ja/models/local_model.dart';
-import 'package:espaco_ja/services/firestore_service.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'storage_service.dart'; // Importar StorageService (caminho relativo)
@@ -8,6 +6,10 @@ import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import '../../models/local_model.dart';
+import '../../services/firestore_service.dart';
+
+
 
 class AddEditarLocalScreen extends StatefulWidget {
   static const routeName = '/local/novo';
@@ -179,18 +181,22 @@ class _AddEditarLocalScreenState extends State<AddEditarLocalScreen> {
           }
         }
 
-        // 2. Crie o objeto final com o ID e a URL da foto (se houver).
         final novoLocalBase = LocalModel(
-          id: tempId, // Usa o ID gerado
+          id: tempId,
           nome: _tituloCtrl.text.trim(),
           descricao: _descCtrl.text.trim(),
           ownerUid: user.uid,
           ativo: true,
-          fotos: fotosUrl, // Adiciona a lista de URLs
-          endereco: '', cidade: '', uf: '', capacidade: 0, precoHora: 0.0,
+          fotos: fotosUrl,
+          endereco: '',
+          cidade: '',
+          uf: '',
+          capacidade: 0,   
+          precoHora: 0.0, 
           latitude: _coordenadasSelecionadas?.latitude,
           longitude: _coordenadasSelecionadas?.longitude,
         );
+
         await _firestoreService.adicionarLocalComId(novoLocalBase);
         
         if (!mounted) return;

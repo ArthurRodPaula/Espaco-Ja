@@ -1,8 +1,11 @@
-import 'package:espaco_ja/screens/caixa_entrada_screen.dart';
-import 'package:espaco_ja/screens/explore/mapa_page.dart';
-import 'package:espaco_ja/screens/spaces/meus_locais_page.dart';
-import 'package:espaco_ja/screens/user_info_screen.dart';
 import 'package:flutter/material.dart';
+import '../caixa_entrada_screen.dart';
+import '../explore/mapa_page.dart';
+import '../spaces/meus_locais_page.dart';
+import '../user_info_screen.dart';
+
+
+
 
 
 class OpcoesScreen extends StatefulWidget {

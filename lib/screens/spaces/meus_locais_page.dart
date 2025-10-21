@@ -1,11 +1,10 @@
-import 'package:espaco_ja/screens/pagamento/pagamento_screen.dart';
-import 'package:espaco_ja/screens/spaces/add_editar_local_page.dart';
-import 'package:espaco_ja/services/firestore_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import '../../models/local_model.dart';
-
+import '../../services/firestore_service.dart';
+import './add_editar_local_page.dart';
+import '../pagamento/pagamento_screen.dart';
 
 
 /// =======================

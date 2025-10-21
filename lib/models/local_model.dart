@@ -72,25 +72,47 @@ class LocalModel {
   }
 
   factory LocalModel.fromFirestore(DocumentSnapshot<Map<String, dynamic>> doc) {
-    final d = doc.data()!;
-    return LocalModel(
-      id: doc.id,
-      ownerUid: d['ownerUid'] as String?,
-      nome: d['nome'] as String?,
-      descricao: (d['descricao'] ?? '') as String,
-      endereco: (d['endereco'] ?? '') as String,
-      cidade: (d['cidade'] ?? '') as String,
-      uf: (d['uf'] ?? '') as String,
-      capacidade: (d['capacidade'] ?? 0) as int,
-      precoHora: (d['precoHora'] ?? 0).toDouble(),
-      fotos: List<String>.from(d['fotos'] ?? const []),
-      ativo: (d['ativo'] ?? true) as bool,
-      createdAt: d['createdAt'] as Timestamp?,
-      updatedAt: d['updatedAt'] as Timestamp?,
-      latitude: (d['latitude'] as num?)?.toDouble(),
-      longitude: (d['longitude'] as num?)?.toDouble(),
-    );
+  final d = doc.data() ?? {};
+
+  // --- latitude/longitude: aceita double OU GeoPoint em 'posicao' ---
+  double? lat;
+  double? lng;
+
+  final latRaw = d['latitude'];
+  final lngRaw = d['longitude'];
+  if (latRaw is num) lat = latRaw.toDouble();
+  if (lngRaw is num) lng = lngRaw.toDouble();
+
+  if ((lat == null || lng == null) && d['posicao'] is GeoPoint) {
+    final gp = d['posicao'] as GeoPoint;
+    lat = gp.latitude;
+    lng = gp.longitude;
   }
+
+  // --- precoHora seguro para int/double/null ---
+  double precoHora = 0;
+  final precoRaw = d['precoHora'];
+  if (precoRaw is num) precoHora = precoRaw.toDouble();
+
+  return LocalModel(
+    id: doc.id,
+    ownerUid: d['ownerUid'] as String?,
+    nome: d['nome'] as String?,
+    descricao: (d['descricao'] ?? '') as String,
+    endereco: (d['endereco'] ?? '') as String,
+    cidade: (d['cidade'] ?? '') as String,
+    uf: (d['uf'] ?? '') as String,
+    capacidade: (d['capacidade'] ?? 0) as int,
+    precoHora: precoHora,
+    fotos: List<String>.from(d['fotos'] ?? const []),
+    ativo: (d['ativo'] ?? true) as bool,
+    createdAt: d['createdAt'] as Timestamp?,
+    updatedAt: d['updatedAt'] as Timestamp?,
+    latitude: lat,
+    longitude: lng,
+  );
+}
+
 
   Map<String, dynamic> toMapForCreate() => {
         'ownerUid': ownerUid ?? '',

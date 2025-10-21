@@ -1,12 +1,11 @@
-import 'package:espaco_ja/screens/caixa_entrada_screen.dart';
-import 'package:espaco_ja/screens/pagamento/dados_local_screen.dart';
-import 'package:espaco_ja/screens/spaces/add_editar_local_page.dart';
-import 'package:espaco_ja/screens/spaces/meus_locais_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:geolocator/geolocator.dart';
-
+import '../caixa_entrada_screen.dart';
+import '../pagamento/dados_local_screen.dart';
+import '../spaces/add_editar_local_page.dart';
+import '../spaces/meus_locais_page.dart';
 import '../../models/local_model.dart';
 import '../../services/firestore_service.dart';
 
