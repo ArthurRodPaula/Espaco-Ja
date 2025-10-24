@@ -2,10 +2,13 @@
 
 ## 👥 Equipe de Desenvolvimento
 
-- **João Silva** - Matrícula: 2023001
-- **Maria Santos** - Matrícula: 2023002  
-- **Pedro Oliveira** - Matrícula: 2023003
-- **Ana Costa** - Matrícula: 2023004
+- **Arthur Rodrigues** - Matrícula: 22402586
+- **Bernardo Almeida** - Matrícula: 22302808
+- **Daniel Henrique** - Matrícula: 2023003
+- **Lucca Theophilo** - Matrícula: 22402225
+- **Pedro Coelho** - Matrícula: 12400653
+- **Rubens Moutinho** - Matrícula: 22400150
+
 
 ## 📋 Sobre o Projeto
 
@@ -319,3 +322,4 @@ Para dúvidas sobre o projeto, entre em contato com a equipe de desenvolvimento 
 ---
 
 **Projeto desenvolvido como trabalho acadêmico - 2025** 🎓
+
