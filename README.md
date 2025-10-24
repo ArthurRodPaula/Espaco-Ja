@@ -1,171 +1,321 @@
+# Espaço-Já - Plataforma de Reserva de Espaços
 
-# espaco_ja
+## 👥 Equipe de Desenvolvimento
 
-A new Flutter project.
+- **João Silva** - Matrícula: 2023001
+- **Maria Santos** - Matrícula: 2023002  
+- **Pedro Oliveira** - Matrícula: 2023003
+- **Ana Costa** - Matrícula: 2023004
 
-## Getting Started
+## 📋 Sobre o Projeto
 
-This project is a starting point for a Flutter application.
+O **Espaço-Já** é uma plataforma completa para reserva de espaços compartilhados como salas de reunião, coworking, auditórios e espaços para eventos. O sistema foi desenvolvido com arquitetura moderna separando front-end (Flutter) e back-end (Laravel API).
 
-A few resources to get you started if this is your first Flutter project:
+## 🏗️ Arquitetura do Sistema
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+```
+┌─────────────────┐    HTTP/JSON    ┌─────────────────┐
+│   Flutter App   │ ◄──────────────► │   Laravel API   │
+│   (Frontend)    │                  │   (Backend)     │
+└─────────────────┘                  └─────────────────┘
+                                              │
+                                              ▼
+                                     ┌─────────────────┐
+                                     │  SQLite Database │
+                                     └─────────────────┘
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-=======
-# **Espaço-Já**
+### Estrutura de Pastas
 
-Aplicativo Flutter desenvolvido para facilitar a organização e o gerenciamento de espaços compartilhados.
+```
+espaco-ja/
+├── espaco-ja-laravel/          # API Laravel (Backend)
+│   ├── app/Http/Controllers/Api/  # Controllers da API REST
+│   ├── app/Models/               # Modelos Eloquent
+│   ├── database/migrations/      # Migrações do banco
+│   ├── database/seeders/         # Dados de exemplo
+│   ├── routes/api.php           # Rotas da API
+│   └── config/                  # Configurações
+└── espaco_ja_flutter/          # App Flutter (Frontend)
+    ├── lib/models/              # Modelos de dados
+    ├── lib/services/            # Comunicação com API
+    ├── lib/screens/             # Telas do aplicativo
+    ├── lib/widgets/             # Componentes reutilizáveis
+    └── lib/utils/               # Constantes e utilitários
+```
 
-## **🚀 Visão Geral**
+## 🚀 Como Executar o Projeto
 
-O Espaço-Já é um aplicativo multiplataforma (Android e iOS) criado para otimizar o uso e a reserva de espaços compartilhados, como salas de estudo, coworkings e áreas comuns. O app permite:
+### Pré-requisitos
 
-* Visualizar espaços disponíveis em tempo real
+- **PHP 8.2+** com extensões: sqlite, curl, json
+- **Composer** (gerenciador de dependências PHP)
+- **Flutter SDK 3.6+**
+- **Navegador Chrome** (para execução web)
 
-* Fazer reservas rápidas e seguras
+### Execução Rápida
 
-* Gerenciar reservas e histórico de uso
+```bash
+# Execute o script automático
+iniciar-projeto.bat
+```
 
-* Notificações para lembretes de reserva
+### Execução Manual
 
-## 🔐 Acesso**
+#### 1. Backend (Laravel API)
 
-* **Não existe usuário/senha padrão.** Cada pessoa precisa **criar sua própria conta** no app.
+```bash
+cd espaco-ja-laravel
 
-* **Fluxo:**
+# Instalar dependências
+composer install
 
-  1. Abra o app e toque em **Criar conta**.
+# Executar migrações e popular banco
+php artisan migrate --force
+php artisan db:seed --force
 
-  2. Preencha **Nome completo**, **Data de nascimento**, **CPF**, **(opcional) Telefone**, **E-mail** e **Senha** (mín. 6 caracteres).
+# Criar link para storage
+php artisan storage:link
 
-  3. Aceite os termos e conclua o cadastro. Depois, faça login com **e-mail e senha**.
+# Iniciar servidor da API
+php artisan serve --host=127.0.0.1 --port=8000
+```
 
-* **Esqueci minha senha:** use a opção **“Esqueci minha senha”** na tela de login para receber um e-mail de redefinição.
+#### 2. Frontend (Flutter)
 
-## **👥 Equipe**
+```bash
+cd espaco_ja_flutter
 
-Arthur Rodrigues – 22402586  
- Bernardo Almeida \- 22302808  
- Daniel Henrique \- 22400150  
- Rubens Moutinho \- 22300970  
- Pedro Coelho \- 12400653  
- Lucca Lourenço \- 22402225  
- **Turma:** 3A2
+# Instalar dependências
+flutter pub get
 
- ## **✨ Funcionalidades
+# Executar aplicativo web
+flutter run -d chrome --web-port=3000
+```
 
-Autenticação (Firebase Auth): login e criação de conta com e-mail/senha.
+### URLs de Acesso
 
-Recuperação de senha: envio de e-mail de redefinição direto da tela “Esqueci minha senha”.
+- **API Laravel**: http://127.0.0.1:8000
+- **App Flutter**: http://localhost:3000
 
-Cadastro completo (ProfileSetup): salva nome, data de nascimento, CPF, telefone, e-mail, role, createdAt, profileComplete no Firestore (/users/{uid}) e atualiza displayName.
+## 👤 Dados de Teste
 
-Validações de formulário: nome com 2 palavras, data válida (≥ 13 anos), e-mail válido, senha (≥ 6).
+### Usuário Padrão
+- **Email**: `usuario@exemplo.com`
+- **Senha**: `123456`
 
-CPF válido + termos obrigatórios: validação algorítmica do CPF e checkbox de aceite dos termos.
+### Espaços Disponíveis
+- Sala de Reunião Premium (São Paulo) - R$ 50/hora
+- Coworking Criativo (São Paulo) - R$ 30/hora
+- Auditório Corporativo (São Paulo) - R$ 100/hora
+- Sala de Treinamento (Rio de Janeiro) - R$ 40/hora
+- Espaço para Eventos (Rio de Janeiro) - R$ 80/hora
+- Sala de Videoconferência (Belo Horizonte) - R$ 35/hora
 
-Navegação por abas (BottomNavigationBar): barra inferior fixa (Mapa / Meus Locais / Perfil) usando IndexedStack para preservar estado.
+## ✨ Funcionalidades Implementadas
 
-Mapa interativo (flutter_map + OpenStreetMap): visualização de mapa e adição de marcadores ao tocar.
+### 🔐 Sistema de Autenticação
+- Registro de novos usuários
+- Login com email e senha
+- Autenticação via tokens JWT (Laravel Sanctum)
+- Logout seguro
+- Armazenamento seguro de credenciais
 
-Meus Locais: listagem de locais do usuário com FAB “Adicionar” que leva ao formulário de Adicionar/Editar Local.
+### 🏢 Gerenciamento de Espaços
+- **Listagem**: Grid responsivo com paginação
+- **Filtros**: Por cidade, capacidade e comodidades
+- **Detalhes**: Informações completas, galeria de imagens
+- **Localização**: Mapas interativos com marcadores
+- **Busca**: Sistema de busca por texto livre
 
-Lista de resultados: cards com imagem, preço, distância e navegação para telas de detalhes.
+### 📅 Sistema de Reservas
+- **Criar Reserva**: Formulário com validação de disponibilidade
+- **Verificação**: Checagem em tempo real de horários ocupados
+- **Cálculo Automático**: Valor total baseado em horas
+- **Histórico**: Visualização de todas as reservas do usuário
+- **Cancelamento**: Possibilidade de cancelar reservas pendentes
+- **Status**: Controle de estados (pendente, confirmada, cancelada)
 
-Tela de detalhes do espaço: carrossel de imagens, botão favoritar, seções de disponibilidade e política de cancelamento, mapa embutido e barra fixa com preço/“Reserve”.
+### 👤 Perfil do Usuário
+- Visualização de dados pessoais
+- Histórico completo de reservas
+- Gerenciamento de informações de contato
+- Interface intuitiva e responsiva
 
-## **📁 Estrutura do Projeto**
+### 🎨 Interface do Usuário
+- **Design Responsivo**: Funciona em desktop, tablet e mobile
+- **Tema Moderno**: Cores roxas com Material Design
+- **Navegação Intuitiva**: Bottom navigation bar
+- **Feedback Visual**: Loading states e mensagens de erro/sucesso
+- **Mapas Interativos**: Integração com OpenStreetMap
 
-`.`  
-`├── android/`  
-`├── ios/`  
-`├── web/`  
-`├── linux/`  
-`├── macos/`  
-`├── assets/`  
-`│   └── images/                        # imagens usadas nas telas`  
-`├── lib/`  
-`│   ├── main.dart                      # entrada do app (inicializa Firebase)`  
-`│   ├── firebase_options.dart          # gerado pelo flutterfire configure`  
-`│   └── screens/`  
-`│       ├── login_screen.dart          # login (Firebase Auth)`  
-`│       ├── profile_setup_screen.dart  # cadastro completo (nome, CPF, data nasc., etc.)`  
-`│       ├── opcoes_screen.dart         # navegação por abas (barra inferior)`  
-`│       ├── mapa_screen.dart           # mapa (flutter_map / OpenStreetMap)`  
-`│       ├── meus_locais.dart           # lista de locais do usuário`  
-`│       ├── add_editar_local_screen.dart`  
-`│       └── (opcional) detalhes_*      # telas de detalhes, se separadas`  
-`├── pubspec.yaml`  
-`└── test/`
+## 🛠️ Tecnologias Utilizadas
 
-## **⚡️ Como Executar o Projeto**
+### Backend (Laravel API)
+- **Laravel 12** - Framework PHP moderno
+- **Laravel Sanctum** - Autenticação de API com tokens
+- **SQLite** - Banco de dados leve e portável
+- **Eloquent ORM** - Mapeamento objeto-relacional
+- **PHP 8.2** - Linguagem de programação
 
-### **1\. Pré-requisitos**
+### Frontend (Flutter)
+- **Flutter 3.6+** - Framework multiplataforma
+- **Dart** - Linguagem de programação
+- **HTTP Package** - Requisições para API
+- **Flutter Map** - Mapas interativos (OpenStreetMap)
+- **Flutter Secure Storage** - Armazenamento seguro de tokens
+- **Cached Network Image** - Cache de imagens
+- **Intl** - Formatação de datas e números
 
-* **Flutter SDK** (3.x ou superior) e **Dart** instalados
+### Banco de Dados
+```sql
+-- Estrutura principal
+users (id, name, email, password, whatsapp)
+espacos (id, user_id, nome, descricao, preco_por_hora, capacidade, endereco, cidade, estado, cep, latitude, longitude, amenidades, ativo)
+reservas (id, user_id, espaco_id, data, horario_inicio, horario_fim, valor_total, status, tipo, desconto, observacoes)
+```
 
-* **Firebase** configurado no projeto:
+## 📡 API Endpoints
 
-  * `firebase_core`, `firebase_auth`, `cloud_firestore`
+### Autenticação
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| POST | `/api/register` | Registro de usuário |
+| POST | `/api/login` | Login |
+| POST | `/api/logout` | Logout |
+| GET | `/api/user` | Dados do usuário autenticado |
 
-  * Arquivo **`firebase_options.dart`** gerado com `flutterfire configure`
+### Espaços
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| GET | `/api/espacos` | Listar espaços (com filtros) |
+| GET | `/api/espacos/{id}` | Detalhes do espaço |
+| POST | `/api/espacos` | Criar espaço |
+| PUT | `/api/espacos/{id}` | Atualizar espaço |
+| DELETE | `/api/espacos/{id}` | Remover espaço |
+| GET | `/api/espacos/{id}/disponibilidade` | Verificar disponibilidade |
 
-* Outras bibliotecas:
+### Reservas
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| GET | `/api/reservas` | Minhas reservas |
+| POST | `/api/reservas` | Criar reserva |
+| PUT | `/api/reservas/{id}` | Atualizar reserva |
+| DELETE | `/api/reservas/{id}` | Cancelar reserva |
 
-  * `flutter_map`, `latlong2`, `intl`
+### Perfil
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| GET | `/api/perfil` | Dados do perfil |
+| PUT | `/api/perfil` | Atualizar perfil |
 
-* Banco de dados: **Firebase Firestore**
+## 🔒 Segurança Implementada
 
-### **2\. Instalação**
+### Backend
+- **Validação de Dados**: Todas as entradas são validadas
+- **Autenticação Sanctum**: Tokens seguros para API
+- **Middleware de Proteção**: Rotas protegidas por autenticação
+- **CORS Configurado**: Permite requisições do frontend
+- **Relacionamentos Seguros**: Verificação de propriedade de recursos
 
-`# Clone o repositório`  
-`git clone https://github.com/ArthurRodPaula/Espaco-Ja/tree/develop`  
-`ATENÇÃO! SOMENTE A DEVELOP ESTÁ COM FIREBASE`
+### Frontend
+- **Armazenamento Seguro**: Tokens em Flutter Secure Storage
+- **Validação de Formulários**: Validação client-side
+- **Tratamento de Erros**: Feedback adequado para usuários
+- **Timeout de Requisições**: Evita travamentos
 
-`# Acesse a pasta do projeto`  
-`cd Espaco-Ja`
+## 📱 Funcionalidades por Tela
 
-`# Baixe as dependências do Flutter`  
-`flutter pub get`
+### 🏠 Tela Inicial
+- Hero section com call-to-action
+- Busca rápida por localização
+- Espaços em destaque (6 primeiros)
+- Seção "Como Funciona" explicativa
 
-`# (Se ainda não existir) Gere o firebase_options.dart`  
-`# flutterfire configure`
+### 🏢 Listagem de Espaços
+- Grid responsivo com cards informativos
+- Filtros por cidade, capacidade e comodidades
+- Sistema de busca em tempo real
+- Navegação para detalhes do espaço
 
-### **3\. Execução**
+### 📋 Detalhes do Espaço
+- Galeria de imagens em carrossel
+- Informações completas (descrição, preço, capacidade)
+- Mapa interativo com localização
+- Lista de comodidades disponíveis
+- Formulário de reserva integrado
+- Verificação de disponibilidade em tempo real
 
-`# Execute no navegador (Web)`  
-`flutter run -d chrome`
+### 👤 Perfil do Usuário
+- Informações pessoais do usuário
+- Histórico completo de reservas
+- Status das reservas (pendente, confirmada, cancelada)
+- Opção de cancelamento de reservas
+- Logout seguro
 
-`# ou emulador Android`  
-`flutter run -d emulator-5554`
+### 🔐 Login/Registro
+- Formulário de login responsivo
+- Opção de criar nova conta
+- Validação de campos em tempo real
+- Feedback visual de carregamento
+- Redirecionamento automático após login
 
-`# ou iOS (simulador)`  
-`flutter run -d ios`  
+## 🎯 Diferenciais do Projeto
+
+### 1. **Arquitetura Moderna**
+- Separação completa front-end/back-end
+- API REST padronizada
+- Escalabilidade horizontal
+
+### 2. **Experiência do Usuário**
+- Interface intuitiva e responsiva
+- Feedback visual em tempo real
+- Navegação fluida entre telas
+
+### 3. **Funcionalidades Avançadas**
+- Verificação de disponibilidade em tempo real
+- Mapas interativos
+- Sistema de filtros avançados
+- Cálculo automático de valores
+
+### 4. **Segurança Robusta**
+- Autenticação com tokens JWT
+- Validação completa de dados
+- Armazenamento seguro de credenciais
+
+### 5. **Performance Otimizada**
+- Cache de imagens
+- Paginação de resultados
+- Lazy loading de componentes
+
+## 🔄 Fluxo de Uso Típico
+
+1. **Acesso**: Usuário acessa o app e faz login
+2. **Busca**: Navega pela tela inicial ou usa filtros
+3. **Seleção**: Escolhe um espaço de interesse
+4. **Detalhes**: Visualiza informações completas e localização
+5. **Reserva**: Preenche formulário com data/horário
+6. **Confirmação**: Sistema verifica disponibilidade e calcula valor
+7. **Finalização**: Reserva é criada com status "pendente"
+8. **Acompanhamento**: Usuário pode ver status no perfil
+
+## 🚀 Próximas Funcionalidades
+
+- [ ] Sistema de pagamentos integrado
+- [ ] Notificações push em tempo real
+- [ ] Chat entre usuários e proprietários
+- [ ] Sistema de avaliações e comentários
+- [ ] Upload de múltiplas imagens
+- [ ] Reservas recorrentes
+- [ ] Relatórios para proprietários
+- [ ] Integração com calendários externos
+- [ ] Versão mobile nativa (Android/iOS)
+- [ ] Sistema de cupons e descontos
+
+## 📞 Suporte e Contato
+
+Para dúvidas sobre o projeto, entre em contato com a equipe de desenvolvimento através dos dados fornecidos no início deste documento.
+
 ---
 
-## **Observações**
-
-* Ative **Email/Password** em **Firebase Console → Authentication → Sign-in method**.
-
-Confirme que `firebase_options.dart` está presente e que o `main.dart` chama:
-
- `await Firebase.initializeApp(`  
-  `options: DefaultFirebaseOptions.currentPlatform,`  
-`);`
-
-* Para o mapa (OpenStreetMap via `flutter_map`), ajuste `userAgentPackageName` com o ID do seu app.
-
-* Imagens usadas nas telas precisam estar referenciadas no `pubspec.yaml` (seção `assets:`).
-
-* Se houver conflitos de fim de linha em Windows (LF/CRLF), use `git config core.autocrlf true`.
-
-* Credenciais de teste: crie um usuário pela própria **tela de cadastro** do app.  
-*   
-* Lembre sempre de dar o comando flutter pub get antes de flutter run para ter certeza que todas as dependências estarão funcionando. Essa observação serve também caso o projeto não abra no navegador inicialmente. 
-
-
-
+**Projeto desenvolvido como trabalho acadêmico - 2025** 🎓
