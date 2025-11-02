@@ -7,17 +7,17 @@
  Daniel Henrique \- 22400150  
  Rubens Moutinho \- 22300970  
  Pedro Coelho \- 12400653  
- Lucca Lourenço \- 22402225  
+ Lucca Lourenço \- 22402225
 
 ## 📋 Sobre o Projeto
 
-O **Espaço-Já** é uma plataforma completa para reserva de espaços compartilhados como salas de reunião, coworking, auditórios e espaços para eventos. O sistema foi desenvolvido com arquitetura moderna separando front-end (React) e back-end (Laravel API).
+O **Espaço-Já** é uma plataforma completa para reserva de espaços compartilhados como salas de reunião, coworking, auditórios e espaços para eventos. Desenvolvido como **Progressive Web App (PWA)** com arquitetura moderna separando front-end (React) e back-end (Laravel API).
 
 ## 🏗️ Arquitetura do Sistema
 
 ```
 ┌─────────────────┐    HTTP/JSON    ┌─────────────────┐
-│   React App     │ ◄──────────────► │   Laravel API   │
+│   React PWA     │ ◄──────────────► │   Laravel API   │
 │   (Frontend)    │                  │   (Backend)     │
 └─────────────────┘                  └─────────────────┘
                                               │
@@ -31,7 +31,7 @@ O **Espaço-Já** é uma plataforma completa para reserva de espaços compartilh
 
 ```
 espaco-ja/
-└── espaco-ja-laravel/          # Aplicação Laravel com React (Full-Stack)
+└── espaco-ja-laravel/          # Aplicação Laravel com React PWA
     ├── app/Http/Controllers/Api/  # Controllers da API REST
     ├── app/Models/               # Modelos Eloquent
     ├── database/migrations/      # Migrações do banco
@@ -39,7 +39,9 @@ espaco-ja/
     ├── routes/api.php           # Rotas da API
     ├── resources/js/            # Componentes React
     ├── resources/views/         # Views Blade
-    └── config/                  # Configurações
+    ├── public/manifest.json     # Manifest PWA
+    ├── public/sw.js            # Service Worker
+    └── public/icons/           # Ícones PWA
 ```
 
 ## 🚀 Como Executar o Projeto
@@ -51,54 +53,48 @@ espaco-ja/
 - **Node.js 18+** e **npm** (para React)
 - **Navegador moderno** (Chrome, Firefox, Safari, Edge)
 
-### Execução Rápida
+### Execução Simples
 
 ```bash
 # Navegue até o diretório do Laravel
 cd espaco-ja-laravel
 
-# Execute o setup completo
-composer install
-npm install
-php artisan migrate --force
-php artisan db:seed --force
-php artisan storage:link
-
-# Inicie o servidor de desenvolvimento
+# Inicie o servidor (assets já compilados)
 php artisan serve
 ```
 
-### Execução Manual
-
-#### 1. Aplicação Laravel + React
+### Execução Completa (se necessário)
 
 ```bash
 cd espaco-ja-laravel
 
-# Instalar dependências PHP
+# Instalar dependências
 composer install
-
-# Instalar dependências JavaScript
 npm install
 
-# Executar migrações e popular banco
+# Configurar banco de dados
 php artisan migrate --force
 php artisan db:seed --force
-
-# Criar link para storage
 php artisan storage:link
 
-# Compilar assets do React (desenvolvimento)
-npm run dev
+# Compilar assets (opcional)
+npm run build
 
-# Em outro terminal, iniciar servidor Laravel
+# Iniciar servidor
 php artisan serve
 ```
 
 ### URLs de Acesso
 
-- **Aplicação Completa**: http://127.0.0.1:8000
+- **Aplicação PWA**: http://127.0.0.1:8000
 - **API Endpoints**: http://127.0.0.1:8000/api
+
+## 📱 Instalação como PWA
+
+1. **Acesse** `http://127.0.0.1:8000` no Chrome/Edge
+2. **Clique** no ícone "Instalar" na barra de endereços
+3. **Confirme** a instalação
+4. **Use** como aplicativo nativo no seu dispositivo
 
 ## 👤 Dados de Teste
 
@@ -116,6 +112,13 @@ php artisan serve
 
 ## ✨ Funcionalidades Implementadas
 
+### 📱 Progressive Web App (PWA)
+- **Instalável**: Funciona como app nativo
+- **Offline**: Cache para uso sem internet
+- **Responsivo**: Adapta-se a qualquer tela
+- **Performance**: Carregamento otimizado
+- **Ícones**: Personalizados para instalação
+
 ### 🔐 Sistema de Autenticação
 - Registro de novos usuários
 - Login com email e senha
@@ -129,6 +132,7 @@ php artisan serve
 - **Detalhes**: Informações completas, galeria de imagens
 - **Localização**: Mapas interativos com marcadores
 - **Busca**: Sistema de busca por texto livre
+- **Upload**: Sistema de upload de imagens
 
 ### 📅 Sistema de Reservas
 - **Criar Reserva**: Formulário com validação de disponibilidade
@@ -142,7 +146,8 @@ php artisan serve
 - Visualização de dados pessoais
 - Histórico completo de reservas
 - Gerenciamento de informações de contato
-- Interface intuitiva e responsiva
+- Dashboard personalizado
+- Meus espaços cadastrados
 
 ### 🎨 Interface do Usuário
 - **Design Responsivo**: Funciona em desktop, tablet e mobile
@@ -150,6 +155,7 @@ php artisan serve
 - **Navegação Intuitiva**: Menu responsivo e breadcrumbs
 - **Feedback Visual**: Loading states e mensagens de erro/sucesso
 - **Componentes Reutilizáveis**: Biblioteca de componentes React
+- **PWA Ready**: Otimizado para instalação como app
 
 ## 🛠️ Tecnologias Utilizadas
 
@@ -160,21 +166,22 @@ php artisan serve
 - **Eloquent ORM** - Mapeamento objeto-relacional
 - **PHP 8.2** - Linguagem de programação
 
-### Frontend (React)
+### Frontend (React PWA)
 - **React 18+** - Biblioteca JavaScript para interfaces
 - **Vite** - Build tool e dev server
+- **PWA** - Progressive Web App
+- **Service Worker** - Cache offline
+- **Web App Manifest** - Configuração de instalação
 - **Axios** - Cliente HTTP para requisições
 - **React Router** - Roteamento SPA
 - **Tailwind CSS** - Framework CSS utilitário
-- **React Hook Form** - Gerenciamento de formulários
-- **React Query** - Gerenciamento de estado servidor
 
 ### Banco de Dados
 ```sql
 -- Estrutura principal
-users (id, name, email, password, whatsapp)
-espacos (id, user_id, nome, descricao, preco_por_hora, capacidade, endereco, cidade, estado, cep, latitude, longitude, amenidades, ativo)
-reservas (id, user_id, espaco_id, data, horario_inicio, horario_fim, valor_total, status, tipo, desconto, observacoes)
+users (id, name, email, password, whatsapp, tipo_usuario, descricao)
+espacos (id, user_id, nome, descricao, preco_por_hora, capacidade, endereco, cidade, estado, cep, latitude, longitude, amenidades, imagens, ativo)
+reservas (id, user_id, espaco_id, data, horario_inicio, horario_fim, valor_total, status, adultos, criancas, bebes, pets, observacoes)
 ```
 
 ## 📡 API Endpoints
@@ -205,26 +212,35 @@ reservas (id, user_id, espaco_id, data, horario_inicio, horario_fim, valor_total
 | PUT | `/api/reservas/{id}` | Atualizar reserva |
 | DELETE | `/api/reservas/{id}` | Cancelar reserva |
 
-### Perfil
+### Upload
 | Método | Endpoint | Descrição |
 |--------|----------|-----------|
-| GET | `/api/perfil` | Dados do perfil |
-| PUT | `/api/perfil` | Atualizar perfil |
+| POST | `/api/upload-image` | Upload de imagem |
+| DELETE | `/api/delete-image` | Remover imagem |
+
+### Dashboard
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| GET | `/api/dashboard/meus-espacos` | Espaços do usuário |
+| GET | `/api/dashboard/reservas-recebidas` | Reservas recebidas |
 
 ## 🔒 Segurança Implementada
 
 ### Backend
-- **Validação de Dados**: Todas as entradas são validadas
+- **Validação de Dados**: Todas as entradas são validadas e sanitizadas
 - **Autenticação Sanctum**: Tokens seguros para API
 - **Middleware de Proteção**: Rotas protegidas por autenticação
 - **CORS Configurado**: Permite requisições do frontend
-- **Relacionamentos Seguros**: Verificação de propriedade de recursos
+- **Headers de Segurança**: X-Content-Type-Options, X-Frame-Options
+- **Upload Seguro**: Validação de tipos e tamanhos de arquivo
+- **SQL Injection**: Proteção via Eloquent ORM
 
 ### Frontend
-- **Armazenamento Seguro**: Tokens em Flutter Secure Storage
-- **Validação de Formulários**: Validação client-side
+- **Armazenamento Seguro**: Tokens em localStorage com validação
+- **Validação de Formulários**: Validação client-side e server-side
 - **Tratamento de Erros**: Feedback adequado para usuários
-- **Timeout de Requisições**: Evita travamentos
+- **CSRF Protection**: Tokens CSRF em todas as requisições
+- **XSS Protection**: Sanitização de dados de entrada
 
 ## 📱 Funcionalidades por Tela
 
@@ -233,25 +249,29 @@ reservas (id, user_id, espaco_id, data, horario_inicio, horario_fim, valor_total
 - Busca rápida por localização
 - Espaços em destaque (6 primeiros)
 - Seção "Como Funciona" explicativa
+- Design responsivo para PWA
 
 ### 🏢 Listagem de Espaços
 - Grid responsivo com cards informativos
 - Filtros por cidade, capacidade e comodidades
 - Sistema de busca em tempo real
 - Navegação para detalhes do espaço
+- Paginação otimizada
 
 ### 📋 Detalhes do Espaço
-- Galeria de imagens em carrossel
+- Galeria de imagens responsiva
 - Informações completas (descrição, preço, capacidade)
-- Mapa interativo com localização
+- Mapa interativo com localização (Leaflet)
 - Lista de comodidades disponíveis
 - Formulário de reserva integrado
 - Verificação de disponibilidade em tempo real
+- Cálculo automático de valores
 
-### 👤 Perfil do Usuário
+### 👤 Dashboard do Usuário
 - Informações pessoais do usuário
 - Histórico completo de reservas
 - Status das reservas (pendente, confirmada, cancelada)
+- Meus espaços cadastrados
 - Opção de cancelamento de reservas
 - Logout seguro
 
@@ -262,57 +282,79 @@ reservas (id, user_id, espaco_id, data, horario_inicio, horario_fim, valor_total
 - Feedback visual de carregamento
 - Redirecionamento automático após login
 
+### ➕ Criar Espaço
+- Formulário completo para cadastro
+- Upload múltiplo de imagens
+- Busca automática de coordenadas
+- Seleção de comodidades
+- Validação de dados em tempo real
+
 ## 🎯 Diferenciais do Projeto
 
-### 1. **Arquitetura Moderna**
+### 1. **Progressive Web App**
+- Instalável como aplicativo nativo
+- Funciona offline com Service Worker
+- Performance otimizada
+- Experiência mobile nativa
+
+### 2. **Arquitetura Moderna**
 - Separação completa front-end/back-end
 - API REST padronizada
 - Escalabilidade horizontal
+- Código limpo e organizado
 
-### 2. **Experiência do Usuário**
+### 3. **Experiência do Usuário**
 - Interface intuitiva e responsiva
 - Feedback visual em tempo real
 - Navegação fluida entre telas
+- Design moderno com Tailwind CSS
 
-### 3. **Funcionalidades Avançadas**
+### 4. **Funcionalidades Avançadas**
 - Verificação de disponibilidade em tempo real
-- Mapas interativos
+- Mapas interativos com Leaflet
 - Sistema de filtros avançados
+- Upload de imagens com validação
 - Cálculo automático de valores
+- Busca geográfica automática
 
-### 4. **Segurança Robusta**
+### 5. **Segurança Robusta**
 - Autenticação com tokens JWT
 - Validação completa de dados
-- Armazenamento seguro de credenciais
+- Headers de segurança
+- Proteção contra XSS e CSRF
+- Upload seguro de arquivos
 
-### 5. **Performance Otimizada**
-- Cache de imagens
-- Paginação de resultados
+### 6. **Performance Otimizada**
+- Cache offline via Service Worker
+- Assets compilados e minificados
 - Lazy loading de componentes
+- Paginação eficiente
+- Otimização de imagens
 
 ## 🔄 Fluxo de Uso Típico
 
-1. **Acesso**: Usuário acessa o app e faz login
-2. **Busca**: Navega pela tela inicial ou usa filtros
-3. **Seleção**: Escolhe um espaço de interesse
-4. **Detalhes**: Visualiza informações completas e localização
-5. **Reserva**: Preenche formulário com data/horário
-6. **Confirmação**: Sistema verifica disponibilidade e calcula valor
-7. **Finalização**: Reserva é criada com status "pendente"
-8. **Acompanhamento**: Usuário pode ver status no perfil
+1. **Acesso**: Usuário acessa o PWA e pode instalá-lo
+2. **Registro/Login**: Cria conta ou faz login
+3. **Busca**: Navega pela tela inicial ou usa filtros
+4. **Seleção**: Escolhe um espaço de interesse
+5. **Detalhes**: Visualiza informações completas e localização
+6. **Reserva**: Preenche formulário com data/horário
+7. **Confirmação**: Sistema verifica disponibilidade e calcula valor
+8. **Finalização**: Reserva é criada com status "pendente"
+9. **Acompanhamento**: Usuário pode ver status no dashboard
 
 ## 🚀 Próximas Funcionalidades
 
 - [ ] Sistema de pagamentos integrado
-- [ ] Notificações push em tempo real
+- [ ] Notificações push PWA
 - [ ] Chat entre usuários e proprietários
 - [ ] Sistema de avaliações e comentários
-- [ ] Upload de múltiplas imagens
 - [ ] Reservas recorrentes
 - [ ] Relatórios para proprietários
 - [ ] Integração com calendários externos
-- [ ] Progressive Web App (PWA)
 - [ ] Sistema de cupons e descontos
+- [ ] Modo offline completo
+- [ ] Sincronização automática
 
 ## 📞 Suporte e Contato
 
@@ -320,4 +362,5 @@ Para dúvidas sobre o projeto, entre em contato com a equipe de desenvolvimento 
 
 ---
 
-**Projeto desenvolvido como trabalho acadêmico - 2024** 🎓
+**Projeto desenvolvido como trabalho acadêmico - 2025** 🎓  
+**Progressive Web App - Instalável em qualquer dispositivo** 📱
