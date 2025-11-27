@@ -31,17 +31,69 @@ O **Espaço-Já** é uma plataforma completa para reserva de espaços compartilh
 
 ```
 espaco-ja/
-└── espaco-ja-laravel/          # Aplicação Laravel com React PWA
-    ├── app/Http/Controllers/Api/  # Controllers da API REST
-    ├── app/Models/               # Modelos Eloquent
-    ├── database/migrations/      # Migrações do banco
-    ├── database/seeders/         # Dados de exemplo
-    ├── routes/api.php           # Rotas da API
-    ├── resources/js/            # Componentes React
-    ├── resources/views/         # Views Blade
-    ├── public/manifest.json     # Manifest PWA
-    ├── public/sw.js            # Service Worker
-    └── public/icons/           # Ícones PWA
+└── espaco-ja-laravel/                     # Backend Laravel + API + React PWA
+    ├── app/
+    │   ├── Http/
+    │   │   ├── Controllers/
+    │   │   │   ├── Api/                  # Controllers REST (JSON)
+    │   │   │   └── Web/                  # Controllers Web (Blade)
+    │   │   ├── Middleware/               # Middlewares
+    │   │   └── Requests/                 # FormRequests (validação)
+    │   │
+    │   ├── Models/                       # Models Eloquent
+    │   │
+    │   ├── Services/                     # Serviços de domínio (Pagamento, Notificações...)
+    │   ├── Policies/                     # Regras de autorização
+    │   ├── Providers/                    # Providers Laravel
+    │   └── Helpers/                      # Funções auxiliares
+    │
+    ├── bootstrap/                        # Bootstrap da aplicação Laravel
+    │
+    ├── config/                           # Arquivos de configuração do Laravel
+    │
+    ├── database/
+    │   ├── migrations/                   # Migrações do banco
+    │   ├── seeders/                      # Seeders (dados iniciais)
+    │   └── factories/                    # Factories de teste
+    │
+    ├── routes/
+    │   ├── api.php                       # Rotas da API
+    │   ├── web.php                       # Rotas Web
+    │   └── channels.php                  # Rotas de sockets/broadcast
+    │
+    ├── resources/
+    │   ├── js/
+    │   │   ├── api/                      # Conexões com back-end (axios / services)
+    │   │   ├── components/               # Componentes React reutilizáveis
+    │   │   ├── pages/                    # Páginas React
+    │   │   ├── contexts/                 # Context API
+    │   │   ├── hooks/                    # Custom Hooks
+    │   │   ├── layouts/                  # Layouts gerais
+    │   │   ├── router/                   # Rotas do React (React Router)
+    │   │   └── utils/                    # Funções auxiliares no frontend
+    │   │
+    │   ├── sass/                         # Estilos SCSS
+    │   └── views/                        # Views Blade (caso tenha)
+    │
+    ├── public/
+    │   ├── icons/                        # Ícones PWA
+    │   ├── manifest.json                 # Manifest PWA
+    │   ├── sw.js                         # Service Worker
+    │   └── index.php                     # Front controller Laravel
+    │
+    ├── storage/                          # Logs, cache, uploads
+    │   └── app/
+    │       └── public/                   # Uploads acessíveis
+    │
+    ├── tests/
+    │   ├── Feature/                      # Testes de endpoints
+    │   └── Unit/                         # Testes unitários
+    │
+    ├── package.json                      # Dependências JS
+    ├── composer.json                     # Dependências PHP
+    ├── vite.config.js                    # Build (Vite)
+    └── .env                              # Configurações do ambiente
+
 ```
 
 ## 🚀 Como Executar o Projeto
